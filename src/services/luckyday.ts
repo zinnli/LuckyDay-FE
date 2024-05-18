@@ -1,9 +1,10 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
-  getLuckyDayCycleInfo,
   getLuckyDayDetail,
   getLuckyDaysActivities,
   postLuckyDay,
+  deleteLuckyBoard,
+  getLuckyDayCycleInfo,
 } from "apis";
 import { CreateLuckyDayForm } from "types";
 
@@ -24,6 +25,12 @@ export const useGetLuckyDayDetail = (req: string) => {
   return useQuery({
     queryKey: ["luckyday"],
     queryFn: () => getLuckyDayDetail(req),
+  });
+};
+
+export const useDeleteLuckyBoard = () => {
+  return useMutation({
+    mutationFn: () => deleteLuckyBoard(),
   });
 };
 
