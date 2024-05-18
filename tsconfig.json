@@ -19,11 +19,7 @@
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "jsxImportSource": "@emotion/react",
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/types/declare",
-      "node_modules/yup"
-    ]
+    "typeRoots": ["./node_modules/@types", "./src/types/declare"]
   },
   "include": ["src/**/*", "src/types/declare/*", "vite-env.d.ts"]
 }
