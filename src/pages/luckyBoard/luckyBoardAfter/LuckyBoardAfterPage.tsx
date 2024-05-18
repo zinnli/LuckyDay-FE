@@ -3,7 +3,6 @@ import { getCurrentDate } from "utils/date";
 import { ButtonLayout, LuckyBalls } from "components";
 
 export default function LuckyBoardAfterPage() {
-  console.log(getCurrentDate());
   return (
     <>
       {/* FIX: API 연결 예정입니다. */}
