@@ -14,7 +14,7 @@ export default function LuckyBoardAfterPage() {
     query: { isCurrent: 1 },
   });
 
-  const { data: info } = useGetLuckyDayCycleInfo(data?.[0].cyclNo ?? 0, !!data); //TODO: enable 조건 추가 리팩토링 필요
+  const { data: info } = useGetLuckyDayCycleInfo(data?.[0].cyclNo ?? 0, !!data);
 
   const { handleOpenModal } = useModal();
   const { addToast } = useToast();
@@ -40,7 +40,10 @@ export default function LuckyBoardAfterPage() {
 
   const handleOpenLastLuckyDayModal = () => {
     handleOpenModal(
-      <ArchiveModal css={S.archiveModal} lastInfo={info?.expDtList} />
+      <ArchiveModal
+        css={S.archiveModal}
+        lastInfo={data?.map((item) => item.date)}
+      />
     );
   };
 
