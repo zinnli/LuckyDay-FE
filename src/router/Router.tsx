@@ -39,6 +39,7 @@ export default function Router({ children }: RouterProps) {
             />
           </Route>
           <Route path="404" element={<P.Error404Page />} />
+          <Route path="loading" element={<P.LoadingPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
