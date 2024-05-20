@@ -2,7 +2,6 @@ import React from "react";
 
 import { SvgFrame } from "components";
 import { useModal } from "hooks";
-import { formatDate } from "utils";
 import { CircleBoxIcon, ShortBoxIcon } from "assets";
 import * as S from "./ArchiveModal.styled";
 
@@ -23,9 +22,9 @@ function ArchiveModal({ className, moreInfo, lastInfo }: ArchiveModalProps) {
           {lastInfo?.length ? (
             <S.LuckyDayButtonWrapper>
               {lastInfo?.map((item) => (
-                <S.LuckyDayButton>
+                <S.LuckyDayButton key={item}>
                   <SvgFrame css={S.svgFrame} icon={<CircleBoxIcon />} />
-                  <span>{formatDate(item, "MM-DD")}</span>
+                  <span>{item}</span>
                 </S.LuckyDayButton>
               ))}
             </S.LuckyDayButtonWrapper>

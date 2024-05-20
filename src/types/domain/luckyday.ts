@@ -69,7 +69,7 @@ export interface GetLuckyDayCycleResponse {
 export interface GetLuckyDayCycleDetail {
   dtlNo: number;
   cyclNo: number;
-  dDay: number;
+  dday: number;
   order: number;
   date: string;
 }

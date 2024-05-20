@@ -42,7 +42,9 @@ export default function LuckyBoardAfterPage() {
     handleOpenModal(
       <ArchiveModal
         css={S.archiveModal}
-        lastInfo={data?.map((item) => item.date)}
+        lastInfo={data
+          ?.filter((item) => item.dday !== 1 && item.date !== null)
+          .map((item) => item.date)}
       />
     );
   };
