@@ -13,17 +13,15 @@ import * as S from "./LuckyBoardAfterPage.styled";
 
 export default function LuckyBoardAfterPage() {
   const [openLastLuckyDays, setOpenLastLuckyDays] = useState(false);
+
   const hasLuckyday = sessionStorage.getItem("hasLuckyday")!;
 
   const { data } = useGetLuckyDayCycle({
     hasLuckyday: +hasLuckyday,
     query: { isCurrent: 1 },
   });
-
   const { data: lastLuckyDays } = useGetLuckyDayCycleLastLuckyDays(
-    {
-      query: { isCurrent: 0 },
-    },
+    { query: { isCurrent: 0 } },
     openLastLuckyDays
   );
   const { data: info } = useGetLuckyDayCycleInfo(data?.[0].cyclNo ?? 0, !!data);
@@ -55,9 +53,9 @@ export default function LuckyBoardAfterPage() {
     handleOpenModal(
       <ArchiveModal
         css={S.archiveModal}
-        lastInfo={lastLuckyDays
-          ?.filter((item) => item.dday !== 1 && item.date !== null)
-          .map((item) => item.date)}
+        lastInfo={lastLuckyDays?.filter(
+          (item) => item.dday !== 1 && item.date !== null
+        )}
       />
     );
   };
