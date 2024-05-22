@@ -4,6 +4,7 @@ export const Layout = styled.div`
   max-width: 430px;
   width: 100%;
   height: 100vh;
+  height: 100svh;
   position: absolute;
   top: 50%;
   left: 50%;
