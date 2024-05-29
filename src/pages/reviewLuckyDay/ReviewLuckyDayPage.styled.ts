@@ -12,16 +12,17 @@ export const Container = styled.div`
 `;
 
 export const ReviewBox = styled.div`
+  aspect-ratio: 370 / 390;
+  max-width: 370px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 370px;
-  height: 390px;
-  margin: 30px 20px 60px 20px;
-  background-size: cover;
-  background-repeat: no-repeat;
+  margin: 30px 20px 35px 20px;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   background-image: url("/images/img-review.webp");
 `;
 
@@ -58,6 +59,9 @@ export const ImageUploadBox = styled.div`
   width: 200px;
   margin-top: 20px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ImageBox = styled.div`
@@ -67,7 +71,12 @@ export const ImageBox = styled.div`
   overflow: hidden;
   position: absolute;
   top: -20px;
-  left: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 export const ButtonBox = styled.div`

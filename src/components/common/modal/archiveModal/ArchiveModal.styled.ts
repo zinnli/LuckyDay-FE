@@ -61,6 +61,16 @@ export const LuckyDayButton = styled.button`
     width: 80px;
     height: 80px;
 
+    @media (max-width: 412px) {
+      width: 75px;
+      height: 75px;
+    }
+
+    @media (max-width: 405px) {
+      width: 70px;
+      height: 70px;
+    }
+
     & > div {
       width: 100%;
       height: 100%;
@@ -74,6 +84,10 @@ export const LuckyDayButton = styled.button`
       left: 50%;
       transform: translate(-50%, -50%);
       color: ${theme.colors.white};
+
+      @media (max-width: 412px) {
+        ${theme.fonts.headline2};
+      }
     }
   `}
 `;
