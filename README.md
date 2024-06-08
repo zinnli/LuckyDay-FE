@@ -32,15 +32,15 @@
 <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=Axios&logoColor=white"/>&nbsp;
 <img src="https://img.shields.io/badge/React Query-FF4154?style=flat-square&logo=React Query&logoColor=white"/>&nbsp;
 <img src="https://img.shields.io/badge/emotion-609926?style=flat-square&logoColor=white"/>&nbsp;
-<img src="https://img.shields.io/badge/React Hook Form-EC5990?style=flat-square&logo=React Hook Form&logoColor=white"/>&nbsp;
+<img src="https://img.shields.io/badge/React%20Hook%20Form-EC5990?style=flat-square&logo=React%20Hook%20Form&logoColor=white" alt="React Hook Form"/>&nbsp;
 
 ### 📖 페이지 별 기능
 
 | PAGE             | FUNCTION                                                                                                    |
 | ---------------- | ----------------------------------------------------------------------------------------------------------- |
 | 📑 MAIN          | 랜딩페이지 / 소셜(카카오) 로그인                                                                            |
-| 📑 LUCKYBOARD    | 현재 사이클 럭키보드 조회 / 생성 페이지로 이동 / 현재 사이클의 지난 럭키데이 조회 / 현재 사이클의 정보 조회 |
-| 📑 CREATE        | 럭키데이 생성 / 럭키데이 활동 목록 조회 / 기간 / 럭키데이 설정 / 제외 일자 선택 기능                        |
+| 📑 LUCKYBOARD    | 현재 사이클 럭키보드 조회 / 생성 페이지로 이동 / 현재 사이클의 지난 럭키데이 조회 / 현재 사이클의 럭키데이 생성옵션 정보 조회 |
+| 📑 CREATE        | 럭키데이 생성 / 럭키데이 활동 목록 조회 / 기간 설정 / 럭키데이 설정 / 제외 일자 선택 기능                        |
 | 📑 DETAIL        | 선택한 럭키데이 활동 조회                                                                                   |
 | 📑 LIST          | 지난 럭키데이 사이클 조회                                                                                   |
 | 📑 LIST > DETAIL | 지난 럭키데이 사이클의 럭키데이 목록 조회                                                                   |
