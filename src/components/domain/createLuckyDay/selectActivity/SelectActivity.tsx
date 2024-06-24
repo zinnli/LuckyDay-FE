@@ -62,7 +62,10 @@ function SelectActivity({ watch, setValue }: SelectActivityProps) {
                 (item) => item.category === activity.label
               )}
               toggle={toggle}
-              isOpen={toggle === activity.label}
+              isOpen={
+                toggle === activity.label ||
+                (activity.label === toggle && toggle === "+) 직접 입력")
+              }
               handleToggle={handleToggle}
             />
           );
