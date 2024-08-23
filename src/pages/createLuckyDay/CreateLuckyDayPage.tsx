@@ -13,20 +13,25 @@ import {
 } from "components";
 import { ArrowIcon } from "assets";
 import { useModal, useToast } from "hooks";
+import { useGetLuckyDaysActivities } from "services";
 import type { CreateLuckyDayForm } from "types";
 import * as S from "./CreateLuckyDayPage.styled";
 
 function CreateLuckyDayPage() {
   const navigate = useNavigate();
+
   const [currentProgress, setCurrentProgress] = useState(0);
+  const [, setSelectedItems] = useState<number[]>([]);
+
+  const { data } = useGetLuckyDaysActivities();
 
   const { setValue, watch, handleSubmit } = useForm<CreateLuckyDayForm>({
     defaultValues: {
-      actList: [],
       customActList: [],
       period: 0,
       cnt: 1,
       expDTList: [],
+      acts: [],
     },
     mode: "onTouched",
   });
@@ -45,10 +50,21 @@ function CreateLuckyDayPage() {
     setCurrentProgress(changedProgress);
   };
 
+  const getSelectItems = (value: number[]): void => {
+    setSelectedItems(value);
+  };
+
   const changePage = (current: number): React.ReactNode => {
     switch (current) {
       case 0:
-        return <SelectActivity setValue={setValue} watch={watch} />;
+        return (
+          <SelectActivity
+            data={data}
+            getSelectItems={getSelectItems}
+            setValue={setValue}
+            watch={watch}
+          />
+        );
       case 1:
         return <SelectPeriod setValue={setValue} watch={watch} />;
       case 2:
@@ -59,10 +75,17 @@ function CreateLuckyDayPage() {
   };
 
   const handleClickNextButton = () => {
-    const emptyActList =
-      watch("actList")[0] === 0 && watch("actList").length === 1;
+    const emptyActList = watch("acts")
+      .filter(({ actList }) => !!actList)
+      .flatMap((item) => item.actList);
 
-    if (currentProgress === 0 && emptyActList) {
+    console.log(emptyActList);
+
+    if (
+      currentProgress === 0 &&
+      !emptyActList?.length &&
+      !watch("customActList")?.length
+    ) {
       return addToast({ content: "최소 1개의 카테고리를 선택해 주세요." });
     }
 
@@ -76,6 +99,21 @@ function CreateLuckyDayPage() {
       <CreateLuckyDayModal watch={watch} handleSubmit={handleSubmit} />
     );
   };
+
+  useEffect(() => {
+    if (!data) return;
+
+    setValue(
+      "acts",
+      data.resData
+        .map((item) => ({
+          category: item.category,
+          actList: [],
+          checked: false,
+        }))
+        .filter(({ category }) => category !== "직접 입력")
+    );
+  }, [data]);
 
   useEffect(() => {
     const hasLuckyday = sessionStorage.getItem("hasLuckyday");
