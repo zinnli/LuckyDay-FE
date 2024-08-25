@@ -9,6 +9,7 @@ import type {
   GetLuckyDayCycleQueryModel,
   GetLuckyDayCycleServerModel,
   GetLuckyDayDetailServerModel,
+  FeedbackQueryModel,
 } from "types";
 
 export const getLuckyDaysActivities = async () => {
@@ -87,5 +88,10 @@ export const getLuckyDayCycleDetails = async (
       params: { isCurrent: 0 },
     }
   );
+  return data;
+};
+
+export const sendFeedback = async (req: FeedbackQueryModel["body"]) => {
+  const { data } = await ax.post("/feedback", req);
   return data;
 };

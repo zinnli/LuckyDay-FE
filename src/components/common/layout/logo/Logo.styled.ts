@@ -14,7 +14,7 @@ export const LogoBox = styled.h3`
 export const Logo_Basic = styled.div`
   width: 35px;
   height: 35px;
-  margin: 0px 10px 0px 25px;
+  margin: 0px 10px 0px 24px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

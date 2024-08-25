@@ -16,7 +16,7 @@ export default function Router({ children }: RouterProps) {
           <Route index element={<P.LandingPage />} />
           <Route path="oauth2/kakao/callback" element={<P.Auth />} />
           <Route element={<AuthRoute />}>
-            <Route path="profile" element={<P.Profile />} />
+            <Route path="profile" element={<P.ProfilePage />} />
 
             <Route path="mypage">
               <Route index element={<P.MyPage />} />
@@ -38,8 +38,12 @@ export default function Router({ children }: RouterProps) {
 
             <Route path="noticeboard">
               <Route index element={<P.NoticeBoardPage />} />
-              <Route path="notice" element={<P.NoticePage />} />
               <Route path="info" element={<P.InfoPage />} />
+            </Route>
+
+            <Route path="notice">
+              <Route index element={<P.NoticeListPage />} />
+              <Route path=":id" element={<P.NoticeDetailPage />} />
             </Route>
           </Route>
 

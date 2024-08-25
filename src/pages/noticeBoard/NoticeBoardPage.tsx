@@ -9,9 +9,6 @@ export default function NoticeBoardPage() {
     <SingleButtonLayout>
       <S.TitleBox>게시판</S.TitleBox>
       <S.ContentsBox>
-        <Link to="/noticeboard/notice">
-          <S.MenuBox>공지사항</S.MenuBox>
-        </Link>
         <Link to={surveyFormUrl}>
           <S.MenuBox>만족도 설문 보내기</S.MenuBox>
         </Link>

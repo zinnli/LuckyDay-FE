@@ -8,17 +8,21 @@ interface CarouselProps {
   texts: string[];
 }
 
-const Carousel = ({ images, texts }: CarouselProps): JSX.Element => {
+export default function Carousel({ images, texts }: CarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleNextSlide = (): void => {
-    const newIndex = (activeIndex + 1) % images.length;
-    setActiveIndex(newIndex);
+    if (activeIndex < images.length - 1) {
+      const newIndex = activeIndex + 1;
+      setActiveIndex(newIndex);
+    }
   };
 
   const handlePrevSlide = (): void => {
-    const newIndex = (activeIndex - 1 + images.length) % images.length;
-    setActiveIndex(newIndex);
+    if (activeIndex > 0) {
+      const newIndex = activeIndex - 1;
+      setActiveIndex(newIndex);
+    }
   };
 
   const handleDotClick = (index: number): void => {
@@ -33,7 +37,7 @@ const Carousel = ({ images, texts }: CarouselProps): JSX.Element => {
   return (
     <S.CarouselContainer {...handlers}>
       <S.TextBox>{texts[activeIndex]}</S.TextBox>
-      <S.SlideContainer>
+      <S.SlideContainer activeIndex={activeIndex}>
         {images.map((image, index) => (
           <S.Slide key={index} active={index === activeIndex}>
             <S.Image src={image} alt={`Slide ${index}`} />
@@ -41,7 +45,7 @@ const Carousel = ({ images, texts }: CarouselProps): JSX.Element => {
         ))}
       </S.SlideContainer>
       <S.ButtonContainer>
-        <S.PrevButton onClick={handlePrevSlide}>
+        <S.PrevButton onClick={handlePrevSlide} disabled={activeIndex === 0}>
           <ArrowIcon css={S.PrevArrowIcon} />
         </S.PrevButton>
         <S.DotContainer>
@@ -53,12 +57,13 @@ const Carousel = ({ images, texts }: CarouselProps): JSX.Element => {
             />
           ))}
         </S.DotContainer>
-        <S.NextButton onClick={handleNextSlide}>
+        <S.NextButton
+          onClick={handleNextSlide}
+          disabled={activeIndex === images.length - 1}
+        >
           <ArrowIcon css={S.NextArrowIcon} />
         </S.NextButton>
       </S.ButtonContainer>
     </S.CarouselContainer>
   );
-};
-
-export default Carousel;
+}

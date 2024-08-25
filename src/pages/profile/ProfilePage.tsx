@@ -1,10 +1,10 @@
-import * as S from "./Profile.styled";
+import * as S from "./ProfilePage.styled";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SvgButton, SingleButtonLayout } from "components";
-import { LongBoxIcon } from "assets";
+import { SvgButton, SingleButtonLayout, Tooltip } from "components";
+import { InfoIcon, LongBoxIcon } from "assets";
 
-export default function Profile() {
+export default function ProfilePage() {
   const navigate = useNavigate();
   const [isLongEmail, setIsLongEmail] = useState(false);
 
@@ -18,7 +18,7 @@ export default function Profile() {
       return;
     }
 
-    if (email && email.length >= 27) {
+    if (email && email.length >= 24) {
       setIsLongEmail(true);
     }
   }, [isLoggedIn, email, navigate]);
@@ -33,7 +33,22 @@ export default function Profile() {
           {nickname}님의 럭키한 날에 <br />
           아래 주소로 메일이 발송될 거예요.
         </S.TextBox>
-        <S.MailBox isLongEmail={isLongEmail}>💌 {email}</S.MailBox>
+
+        <S.MailBox isLongEmail={isLongEmail}>
+          💌 {email}
+          <Tooltip
+            content={
+              <>
+                이메일은 [마이페이지 - 프로필 설정]에서
+                <br />
+                언제든지 변경할 수 있어요.
+              </>
+            }
+            flow="down"
+          >
+            <InfoIcon />
+          </Tooltip>
+        </S.MailBox>
         <S.ButtonBox>
           <SvgButton
             label="럭키 보드로 가기"

@@ -3,18 +3,18 @@ import { css } from "@emotion/react";
 
 export const CarouselContainer = styled.div`
   position: relative;
-  overflow: hidden;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  overflow: hidden;
 `;
 
-export const SlideContainer = styled.div`
-  width: 100%;
+export const SlideContainer = styled.div<{ activeIndex: number }>`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 300px;
+  transition: transform 0.5s ease-in-out;
+  transform: ${({ activeIndex }) => `translateX(-${activeIndex * 100}%)`};
 `;
 
 interface SlideProps {
@@ -22,7 +22,7 @@ interface SlideProps {
 }
 
 export const Slide = styled.div<SlideProps>`
-  display: ${({ active }) => (active ? "block" : "none")};
+  flex: 0 0 100%;
   justify-content: center;
   align-items: center;
 `;
@@ -41,11 +41,11 @@ export const Image = styled.img`
 export const TextBox = styled.div`
   ${({ theme }) => css`
     width: 315px;
-    margin: 5% 0px;
+    padding: 5% 0px;
     text-align: center;
     white-space: pre-wrap;
-    color: ${theme.colors.black};
     ${theme.fonts.logo};
+    color: ${theme.colors.black};
   `}
 `;
 
@@ -70,6 +70,12 @@ export const button = css`
   background-image: url("/images/img_empty_beige.png");
   border: none;
   cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+
   & > svg {
     width: 24px;
     height: 24px;

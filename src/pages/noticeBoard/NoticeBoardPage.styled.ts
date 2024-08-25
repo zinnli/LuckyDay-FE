@@ -33,6 +33,7 @@ export const MenuBox = styled.div`
     ${theme.fonts.headline1}
     border-bottom: 1px solid ${theme.colors.gray};
     transition: color 0.2s ease;
+
     &:hover {
       color: ${theme.colors.orange};
     }

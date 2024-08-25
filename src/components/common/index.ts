@@ -6,4 +6,5 @@ export * from "./portal";
 export * from "./svgFrame";
 export * from "./toast";
 export * from "./spinner";
+export * from "./tooltip";
 export * from "./buttons/svgButton";

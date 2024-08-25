@@ -6,20 +6,24 @@ export const MenuIcon = styled.div`
   margin-right: 20px;
   cursor: pointer;
   & > svg {
-    width: 40px;
-    height: 40px;
+    width: 34px;
+    height: 34px;
   }
 `;
 
-export const ToggleBox = styled.div`
+export const ToggleBox = styled.div<{ isVisible: boolean }>`
   position: absolute;
   width: 200px;
-  height: 400px;
+  height: 490px;
   border-radius: 15px 0px 0px 15px;
   box-shadow: -4px 4px 4px 0px #00000040;
   background-size: cover;
   background-position: center;
   background-image: url("/images/background.webp");
+  transition: opacity 0.1s ease, transform 0.2s ease;
+  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
+  transform: ${({ isVisible }) => (isVisible ? "scale(1)" : "scale(0.95)")};
+  pointer-events: ${({ isVisible }) => (isVisible ? "auto" : "none")};
   z-index: 3;
 `;
 

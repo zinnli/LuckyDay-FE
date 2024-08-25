@@ -9,8 +9,6 @@ export const ModalContainer = styled.div`
   text-align: center;
   width: 100%;
   padding: 50px 20px 20px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 export const Logo_Sad = styled.div`

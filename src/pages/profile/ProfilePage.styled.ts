@@ -34,16 +34,34 @@ interface MailBoxProps {
 
 export const MailBox = styled.div<MailBoxProps>`
   ${({ theme, isLongEmail }) => css`
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 90%;
     height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin: 20px;
     border-radius: 20px;
     ${isLongEmail ? theme.fonts.headline2 : theme.fonts.headline1}
     color: ${theme.colors.black};
     background-color: ${theme.colors.beige};
+
+    @media (max-width: 375px) {
+      ${theme.fonts.headline2}
+    }
+
+    svg {
+      position: absolute;
+      right: 10px;
+      margin-top: -12px;
+      cursor: pointer;
+
+      &:hover {
+        path {
+          fill: ${theme.colors.orange};
+        }
+      }
+    }
   `}
 `;
 

@@ -16,9 +16,9 @@ export const TitleBox = styled.div`
     width: 100%;
     height: 60px;
     padding: 30px;
-    color: ${theme.colors.black};
     ${theme.fonts.headline1}
-    border-top: 1px  solid ${theme.colors.gray};
+    color: ${theme.colors.black};
+    border-top: 1px solid ${theme.colors.gray};
   `}
 `;
 
@@ -30,21 +30,22 @@ export const MenuBox = styled.div`
     width: 100%;
     height: 80px;
     padding: 5px;
-    color: ${theme.colors.black};
     ${theme.fonts.headline1}
+    color: ${theme.colors.black};
     border-bottom: 1px solid ${theme.colors.gray};
     transition: color 0.2s ease;
-    /* &:hover {
+
+    &:hover {
       color: ${theme.colors.orange};
-    } */
-    /* cursor: pointer; */
+    }
+    cursor: pointer;
   `}
 `;
 
 export const DateBox = styled.div`
   ${({ theme }) => css`
     padding-top: 8px;
-    color: ${theme.colors.gray};
     ${theme.fonts.body2}
+    color: ${theme.colors.gray};
   `}
 `;

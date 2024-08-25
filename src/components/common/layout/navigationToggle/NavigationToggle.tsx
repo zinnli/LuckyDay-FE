@@ -1,15 +1,17 @@
 import * as S from "./NavigationToggle.styled";
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { SendFeedbackModal } from "./sendFeedbackModal";
+import { useModal } from "hooks";
 import { MenuIcon } from "assets";
 
 interface NavigationToggleProps {
   defaultOn?: boolean;
 }
 
-const NavigationToggle: (props: NavigationToggleProps) => JSX.Element = ({
+export default function NavigationToggle({
   defaultOn = false,
-}) => {
+}: NavigationToggleProps) {
   const [isToggleVisible, setIsToggleVisible] = useState(defaultOn);
   const [toggleBoxPosition, setToggleBoxPosition] = useState({
     top: 0,
@@ -19,6 +21,7 @@ const NavigationToggle: (props: NavigationToggleProps) => JSX.Element = ({
   const toggleRef = useRef<HTMLDivElement>(null);
   const menuIconRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const { handleOpenModal, handleModalClose } = useModal();
 
   const nickname = sessionStorage.getItem("nickname");
   const profileNumber = sessionStorage.getItem("profileNumber");
@@ -33,13 +36,21 @@ const NavigationToggle: (props: NavigationToggleProps) => JSX.Element = ({
 
   const profileImageUrl = getProfileImageUrl(profileNumber);
 
+  const closeToggle = () => {
+    setIsToggleVisible(false);
+  };
+
+  const openSendFeedbackModal = () => {
+    handleOpenModal(<SendFeedbackModal onClose={handleModalClose} />);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         !toggleRef.current?.contains(event.target as Node) &&
         !menuIconRef.current?.contains(event.target as Node)
       ) {
-        setIsToggleVisible(false);
+        closeToggle();
       }
     };
 
@@ -71,54 +82,56 @@ const NavigationToggle: (props: NavigationToggleProps) => JSX.Element = ({
   };
 
   useEffect(() => {
-    setIsToggleVisible(false);
+    closeToggle();
   }, [location]);
+
+  const menuItems = [
+    { label: "럭키 데이 보관함", to: "/luckydays/list" },
+    { label: "마이페이지", to: "/mypage" },
+    { label: "공지사항", to: "/notice" },
+    { label: "게시판", to: "/noticeboard" },
+  ];
 
   return (
     <>
       <S.MenuIcon onClick={toggleNavigation} ref={menuIconRef}>
         <MenuIcon />
       </S.MenuIcon>
-      {isToggleVisible && (
-        <S.ToggleBox
-          ref={toggleRef}
-          style={{
-            top: `${toggleBoxPosition.top}px`,
-            left:
-              typeof toggleBoxPosition.left === "number"
-                ? `${toggleBoxPosition.left}px`
-                : toggleBoxPosition.left,
-            right:
-              toggleBoxPosition.right === "auto"
-                ? "auto"
-                : `${toggleBoxPosition.right}px`,
-          }}
-        >
-          <button onClick={toggleNavigation}></button>
-          <S.ToggleContentsBox>
-            <S.ProfileBox>
-              <S.ProfileImage imageUrl={profileImageUrl} />
-              {!nickname ? "사용자님" : `${nickname!.slice(0, 8)}님`}
-            </S.ProfileBox>
-            <S.ToggleMenuBox>
-              <Link
-                to="/luckydays/list"
-                onClick={() => setIsToggleVisible(false)}
-              >
-                <S.ToggleMenu>럭키 데이 보관함</S.ToggleMenu>
+      <S.ToggleBox
+        ref={toggleRef}
+        isVisible={isToggleVisible}
+        style={{
+          top: `${toggleBoxPosition.top}px`,
+          left:
+            typeof toggleBoxPosition.left === "number"
+              ? `${toggleBoxPosition.left}px`
+              : toggleBoxPosition.left,
+          right:
+            toggleBoxPosition.right === "auto"
+              ? "auto"
+              : `${toggleBoxPosition.right}px`,
+        }}
+      >
+        <button onClick={toggleNavigation}></button>
+        <S.ToggleContentsBox>
+          <S.ProfileBox>
+            <S.ProfileImage imageUrl={profileImageUrl} />
+            {!nickname ? "사용자님" : `${nickname!.slice(0, 8)}님`}
+          </S.ProfileBox>
+          <S.ToggleMenuBox>
+            {menuItems.map((item) => (
+              <Link key={item.to} to={item.to} onClick={closeToggle}>
+                <S.ToggleMenu>{item.label}</S.ToggleMenu>
               </Link>
-              <Link to="/mypage" onClick={() => setIsToggleVisible(false)}>
-                <S.ToggleMenu>마이페이지</S.ToggleMenu>
-              </Link>
-              <Link to="/noticeboard" onClick={() => setIsToggleVisible(false)}>
-                <S.ToggleMenuBottom>게시판</S.ToggleMenuBottom>
-              </Link>
-            </S.ToggleMenuBox>
-          </S.ToggleContentsBox>
-        </S.ToggleBox>
-      )}
+            ))}
+            <div onClick={closeToggle}>
+              <S.ToggleMenuBottom onClick={openSendFeedbackModal}>
+                피드백 보내기
+              </S.ToggleMenuBottom>
+            </div>
+          </S.ToggleMenuBox>
+        </S.ToggleContentsBox>
+      </S.ToggleBox>
     </>
   );
-};
-
-export default NavigationToggle;
+}
