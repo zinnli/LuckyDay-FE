@@ -49,41 +49,45 @@ export const TextBox = styled.div`
 `;
 
 export const ReviewTextarea = styled.textarea`
-  width: 270px;
-  height: 100px;
-  padding: 20px;
-  margin-top: 80px;
-  margin-bottom: 70px;
-  border: 0;
-  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  width: 270px;
+  height: 120px;
+  padding: 5px 20px;
+  margin-top: 70px;
+  margin-bottom: 35px;
+  background-color: transparent;
   color: ${({ theme }) => theme.colors.black};
   ${({ theme }) => theme.fonts.headline2};
+  border: 0;
   resize: none;
   overflow-y: auto;
   white-space: pre-wrap;
+
   &:focus {
     outline: none;
   }
 `;
 
 export const ImageUploadBox = styled.div`
-  width: 200px;
-  height: 140px;
-  margin-top: 20px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 200px;
+  height: 140px;
+  margin-top: 30px;
 `;
 
 export const ImageBox = styled.div`
+  position: absolute;
+  overflow: hidden;
+  top: -15px;
   width: 100%;
   height: 140px;
   border-radius: 10px;
-  overflow: hidden;
-  position: absolute;
-  top: -15px;
 
   img {
     width: 100%;
@@ -98,11 +102,22 @@ export const ButtonBox = styled.div`
   width: 100%;
 `;
 
+export const CharCount = styled.div`
+  ${({ theme }) => css`
+    position: relative;
+    align-self: flex-end;
+    right: 42px;
+    bottom: 35px;
+    ${theme.fonts.body1};
+    color: ${theme.colors.black};
+  `}
+`;
+
 export const ErrorContainer = styled.div`
   position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 250px;
 `;
 
@@ -110,8 +125,8 @@ export const ErrorText = styled.p`
   ${({ theme }) => css`
     position: absolute;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     padding: 10px;
     margin-top: 20px;
     color: ${theme.colors.black};

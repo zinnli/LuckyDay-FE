@@ -9,6 +9,8 @@ import type {
   GetLuckyDayCycleQueryModel,
   GetLuckyDayCycleServerModel,
   GetLuckyDayDetailServerModel,
+  CreateLuckyDayReviewQueryModel,
+  DeleteLuckyDayReviewQueryModel,
   FeedbackQueryModel,
 } from "types";
 
@@ -35,6 +37,57 @@ export const getLuckyDayReview = async (
   const { data } = await ax.get<GetLuckyDayDetailServerModel>(
     `/luckydays/${dtlNo}`
   );
+  return data;
+};
+
+export const createLuckyDayReview = async (
+  req: CreateLuckyDayReviewQueryModel
+) => {
+  const formData = new FormData();
+  formData.append(
+    "reviewReqDto",
+    new Blob([JSON.stringify(req.body)], { type: "application/json" })
+  );
+
+  if (req.image) {
+    formData.append("image", req.image);
+  }
+
+  const { data } = await ax.post("/luckydays/review", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return data;
+};
+
+export const updateLuckyDayReview = async (
+  req: CreateLuckyDayReviewQueryModel
+) => {
+  const formData = new FormData();
+  formData.append(
+    "reviewReqDto",
+    new Blob([JSON.stringify(req.body)], { type: "application/json" })
+  );
+
+  if (req.image) {
+    formData.append("image", req.image);
+  }
+
+  const { data } = await ax.put("/luckydays/review", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return data;
+};
+
+export const deleteLuckyDayReview = async (
+  req: DeleteLuckyDayReviewQueryModel
+) => {
+  const { data } = await ax.delete(`/luckydays/review`, { params: req.query });
   return data;
 };
 

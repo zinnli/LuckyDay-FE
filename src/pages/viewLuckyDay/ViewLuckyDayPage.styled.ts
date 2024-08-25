@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 export const Container = styled.div`
   display: flex;
@@ -59,7 +59,7 @@ export const ImageBox = styled.div`
 export const Image = styled.div`
   width: 200px;
   height: 140px;
-  margin-top: 5px;
+  margin-top: 10px;
   margin-bottom: 100px;
 
   img {
@@ -86,15 +86,17 @@ export const DefaultImage = styled.div`
 export const ReviewTextBox = styled.div`
   ${({ theme }) => css`
     display: flex;
+    align-items: center;
     justify-content: center;
     width: 270px;
     height: 120px;
-    margin-top: -50px;
-    padding: 10px 20px;
+    padding: 20px;
+    margin-top: -65px;
     color: ${theme.colors.black};
     ${theme.fonts.headline2}
     word-break: break-word;
     white-space: pre-wrap;
+    overflow-y: auto;
   `}
 `;
 
@@ -106,4 +108,48 @@ export const SpinnerBox = styled.div`
     margin-bottom: -120px;
     background-color: ${theme.colors.lightBeige};
   `}
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 70%;
+  height: 60px;
+
+  @media (max-width: 380px) {
+    margin-top: -20px;
+  }
+`;
+
+export const Button = styled.button`
+  ${({ theme }) => css`
+    position: relative;
+    width: 110px;
+    height: 42px;
+
+    & > div {
+      width: 100%;
+      height: 100%;
+    }
+
+    & > span {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      ${theme.fonts.headline2};
+      column-gap: 4px;
+    }
+  `}
+`;
+
+export const svgFrame = (theme: Theme) => css`
+  path {
+    fill: ${theme.colors.beige};
+  }
 `;
