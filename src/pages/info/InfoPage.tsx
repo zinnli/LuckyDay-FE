@@ -69,7 +69,7 @@ export default function InfoPage() {
             </S.InfoBox>
           </S.ProfileBox>
         </S.MenuBox>
-        <S.TextBox>©2024 Team LuckyDay. All rights reserved.</S.TextBox>
+        <S.Footer>© 2024 Team LuckyDay. All rights reserved.</S.Footer>
       </S.ContentsBox>
     </SingleButtonLayout>
   );
