@@ -21,3 +21,8 @@ export const ContentsBox = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const Button = styled.div`
+  width: 100px;
+  background-color: white;
+`;

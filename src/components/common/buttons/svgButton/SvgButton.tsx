@@ -5,6 +5,7 @@ import { useTheme } from "@emotion/react";
 
 interface SvgButtonProps {
   className?: string;
+  id?: string;
   label?: string;
   icon: ReactNode;
   width?: string;
@@ -18,6 +19,7 @@ interface SvgButtonProps {
 
 export default function SvgButton({
   className,
+  id,
   label,
   icon,
   width = "247px",
@@ -34,6 +36,7 @@ export default function SvgButton({
   return (
     <S.SvgWrapper
       className={className}
+      id={id}
       onClick={!disabled ? onClick : undefined}
       disabled={disabled}
     >
