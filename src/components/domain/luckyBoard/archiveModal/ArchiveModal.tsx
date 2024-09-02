@@ -1,10 +1,11 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { SvgFrame } from "components";
+import * as S from "./ArchiveModal.styled";
+import { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useModal } from "hooks";
+import { useVisibility } from "./hooks";
+import { SvgFrame } from "components";
 import { CircleBoxIcon, ShortBoxIcon } from "assets";
 import type { GetLuckyDayCycleDetail } from "types";
-import * as S from "./ArchiveModal.styled";
 
 interface ArchiveModalProps {
   className?: string;
@@ -12,19 +13,43 @@ interface ArchiveModalProps {
   lastInfo?: GetLuckyDayCycleDetail[];
 }
 
-function ArchiveModal({ className, moreInfo, lastInfo }: ArchiveModalProps) {
-  const navigate = useNavigate();
-
+export default function ArchiveModal({
+  className,
+  moreInfo,
+  lastInfo,
+}: ArchiveModalProps) {
+  const { isVisible, show, hide } = useVisibility(false);
   const { handleModalClose } = useModal();
 
-  const moveToDetail = (dtlNo: number) => () => {
-    navigate(`/luckydays/${dtlNo}`);
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  const closeModal = () => {
+    hide();
     handleModalClose();
   };
 
+  const moveToDetail = (dtlNo: number) => () => {
+    navigate(`/luckydays/${dtlNo}`);
+    closeModal();
+  };
+
+  useEffect(() => {
+    show();
+  }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      closeModal();
+    }
+  }, [location]);
+
   return (
-    <S.ArchiveModal hasPadding={!!moreInfo} className={className}>
+    <S.ArchiveModal
+      hasPadding={!!moreInfo}
+      className={className}
+      isVisible={isVisible}
+    >
       {moreInfo && <div>{moreInfo}</div>}
       {lastInfo && (
         <>
@@ -49,12 +74,10 @@ function ArchiveModal({ className, moreInfo, lastInfo }: ArchiveModalProps) {
         </>
       )}
 
-      <S.Button onClick={handleModalClose}>
+      <S.Button onClick={closeModal}>
         <SvgFrame css={S.svgFrameButton} icon={<ShortBoxIcon />} />
         <span>닫기</span>
       </S.Button>
     </S.ArchiveModal>
   );
 }
-
-export default ArchiveModal;
