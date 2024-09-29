@@ -42,7 +42,7 @@ export const useCreateLuckyDay = () => {
 
 export const useGetLuckyDayDetail = (req: string) => {
   return useQuery({
-    queryKey: ["luckyday"],
+    queryKey: ["luckyday", req],
     queryFn: () => getLuckyDayDetail(req),
   });
 };

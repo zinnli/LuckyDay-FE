@@ -20,6 +20,7 @@ export const Container = styled.div`
 `;
 
 export const ReviewBox = styled.div`
+  position: relative;
   aspect-ratio: 370 / 390;
   max-width: 370px;
   width: 100%;
@@ -53,7 +54,7 @@ export const ImageBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: -30px;
+  margin-top: -100px;
 `;
 
 export const Image = styled.div`
@@ -85,13 +86,13 @@ export const DefaultImage = styled.div`
 
 export const ReviewTextBox = styled.div`
   ${({ theme }) => css`
+    position: absolute;
     display: flex;
-    align-items: center;
     justify-content: center;
     width: 270px;
-    height: 120px;
-    padding: 20px;
-    margin-top: -65px;
+    height: 100px;
+    padding: 10px 20px;
+    margin-top: 180px;
     color: ${theme.colors.black};
     ${theme.fonts.headline2}
     word-break: break-word;

@@ -16,18 +16,18 @@ import {
   FileUploader,
 } from "components";
 import { ReviewFormData } from "types";
-import { ShortBoxIcon } from "assets";
+import { ShortBoxIcon, TrashIcon } from "assets";
 import { formatDate } from "utils";
 
 export default function ReviewLuckyDayPage() {
   const { id } = useParams();
   const { addToast } = useToast();
 
-  const { data, isLoading, error } = useGetLuckyDayDetail(id || "");
+  const { data, isLoading, error, refetch } = useGetLuckyDayDetail(id || "");
   const [existingImageUrl, setExistingImageUrl] = useState<string | null>(null);
-  const [isDefaultImage, setIsDefaultImage] = useState(true);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isImageDeleted, setIsImageDeleted] = useState(false);
 
   const createReviewMutation = useCreateLuckyDayReview();
   const updateReviewMutation = useUpdateLuckyDayReview();
@@ -53,25 +53,22 @@ export default function ReviewLuckyDayPage() {
 
   const handleFileSelect = (file: File) => {
     setValue("image", file);
-    setIsDefaultImage(false);
+  };
+
+  const handleDeleteImage = () => {
+    setIsImageDeleted(true);
+    setExistingImageUrl(null);
+    setValue("image", null);
   };
 
   const onSubmit = async (data: ReviewFormData) => {
     const reviewReqDto = {
       dtlNo: id ? Number(id) : 0,
       review: data.review,
+      imageDelete: isImageDeleted ? 1 : 0,
     };
 
-    let imageToUpload: File | null = data.image;
-
-    if (!data.image && existingImageUrl && !isDefaultImage) {
-      // 이미지를 변경하지 않은 경우, 기존 이미지를 다시 서버에 전송하기 위해 Blob 형태로 변환
-      const response = await fetch(existingImageUrl);
-      const blob = await response.blob();
-      imageToUpload = new File([blob], "existingImage.png", {
-        type: blob.type,
-      });
-    }
+    const imageToUpload: File | null = data.image || null;
 
     const mutationPayload = {
       body: reviewReqDto,
@@ -83,10 +80,16 @@ export default function ReviewLuckyDayPage() {
       : createReviewMutation.mutate;
 
     mutationFn(mutationPayload, {
-      onSuccess: () => {
+      onSuccess: async () => {
         addToast({
           content: isEditMode ? "수정되었습니다." : "저장되었습니다.",
         });
+
+        setIsImageDeleted(false);
+        setExistingImageUrl(null);
+
+        await refetch();
+
         navigate(`/luckydays/review/${id}`);
       },
       onError: (error) => {
@@ -115,23 +118,29 @@ export default function ReviewLuckyDayPage() {
       }
 
       if (data.resData.imageUrl) {
-        const fullImageUrl = `${import.meta.env.VITE_BASE_URL}${
-          data.resData.imageUrl
-        }`;
-        setExistingImageUrl(fullImageUrl);
-        setIsDefaultImage(data.resData.imageUrl.includes("default"));
+        // default 이미지 URL을 확인하고, default 이미지가 아닌 경우에만 이미지 URL 설정
+        if (!data.resData.imageUrl.includes("default")) {
+          const fullImageUrl = `${import.meta.env.VITE_BASE_URL}${
+            data.resData.imageUrl
+          }`;
+          setExistingImageUrl(fullImageUrl);
+        }
       }
       setIsButtonDisabled(true);
     }
   }, [data, setValue]);
 
   useEffect(() => {
-    if (review && review.length <= 100 && (isDirty || image)) {
+    if (
+      review &&
+      review.length <= 100 &&
+      (isDirty || image || isImageDeleted)
+    ) {
       setIsButtonDisabled(false);
     } else {
       setIsButtonDisabled(true);
     }
-  }, [review, image, isDirty]);
+  }, [review, image, isDirty, isImageDeleted]);
 
   if (isLoading) {
     return <PageSpinner />;
@@ -156,9 +165,12 @@ export default function ReviewLuckyDayPage() {
         <S.ReviewBox>
           <S.TextBox>{actNm}</S.TextBox>
           <S.ImageUploadBox>
-            {existingImageUrl && !isDefaultImage && !image ? (
+            {existingImageUrl && !isImageDeleted && !image ? (
               <S.ImageBox>
                 <img src={existingImageUrl} alt="Saved preview" />
+                <S.ImageDeleteButton onClick={handleDeleteImage}>
+                  <TrashIcon />
+                </S.ImageDeleteButton>
               </S.ImageBox>
             ) : (
               image && (
@@ -167,6 +179,9 @@ export default function ReviewLuckyDayPage() {
                     src={URL.createObjectURL(image)}
                     alt="Uploaded preview"
                   />
+                  <S.ImageDeleteButton onClick={handleDeleteImage}>
+                    <TrashIcon />
+                  </S.ImageDeleteButton>
                 </S.ImageBox>
               )
             )}
@@ -180,7 +195,7 @@ export default function ReviewLuckyDayPage() {
                 message: "리뷰는 100자 이내로 작성해 주세요.",
               },
             })}
-            placeholder={"100자 이내로 럭키 데이를 기록해 보세요:)"}
+            placeholder="100자 이내로 럭키 데이를 기록해 보세요 :)"
           />
           <S.CharCount>{review.length}/100</S.CharCount>
           <S.ErrorContainer>
