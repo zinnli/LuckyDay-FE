@@ -7,7 +7,9 @@ export const modal = (theme: Theme) =>
       justify-content: center;
       p {
         width: 100%;
-        color: ${theme.colors.black};
+      }
+      strong {
+        color: ${theme.colors.orange};
       }
     }
   `;

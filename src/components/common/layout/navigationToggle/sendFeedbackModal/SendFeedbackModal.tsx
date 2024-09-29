@@ -1,4 +1,5 @@
 import * as S from "./SendFeedbackModal.styled";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTheme } from "@emotion/react";
 import { useToast } from "hooks";
@@ -6,6 +7,7 @@ import { useSendFeedback } from "services";
 import { FeedbackFormValues } from "types";
 import { BaseModal, SvgButton, PageSpinner } from "components";
 import { ShortBoxIcon } from "assets";
+import { SendFeedbackMessage } from "../sendFeedbackMessage";
 
 interface SendFeedbackModalProps {
   onClose: () => void;
@@ -14,6 +16,7 @@ interface SendFeedbackModalProps {
 export default function SendFeedbackModal({ onClose }: SendFeedbackModalProps) {
   const theme = useTheme();
   const { addToast } = useToast();
+  const [feedbackSent, setFeedbackSent] = useState(false);
 
   const {
     register,
@@ -49,7 +52,7 @@ export default function SendFeedbackModal({ onClose }: SendFeedbackModalProps) {
       {
         onSuccess: () => {
           addToast({ content: "피드백이 전송되었습니다." });
-          onClose();
+          setFeedbackSent(true);
         },
         onError: (error) => {
           addToast({ content: "오류가 발생했습니다. 다시 시도해 주세요." });
@@ -61,6 +64,10 @@ export default function SendFeedbackModal({ onClose }: SendFeedbackModalProps) {
 
   const isButtonDisabled =
     feedbackValue.length === 0 || feedbackValue.length > 160;
+
+  if (feedbackSent) {
+    return <SendFeedbackMessage onClose={onClose} />;
+  }
 
   return (
     <BaseModal>

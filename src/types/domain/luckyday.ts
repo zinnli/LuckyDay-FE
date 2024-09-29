@@ -85,6 +85,7 @@ export interface GetLuckyDayCycleDetail {
   dday: number;
   order: number;
   date: string;
+  reviewCheck: number;
 }
 
 export interface GetLuckyDayCycleLastLuckyDaysQueryModel {

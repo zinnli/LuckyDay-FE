@@ -133,3 +133,20 @@ export const ErrorText = styled.p`
     ${theme.fonts.body2}
   `}
 `;
+
+export const ImageDeleteButton = styled.div`
+  ${({ theme }) => css`
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    margin: 8px;
+    border-radius: 50%;
+    background-color: ${theme.colors.beige};
+    cursor: pointer;
+  `}
+`;

@@ -6,7 +6,7 @@ import { CircleBoxIcon } from "assets";
 import { GetLuckyDayCycleDetail } from "types";
 import { useGetLuckyDayCycleDetails } from "services";
 
-const LuckyDayCycleDetailPage = () => {
+export default function LuckyDayCycleDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, error } = useGetLuckyDayCycleDetails(Number(id));
   const theme = useTheme();
@@ -29,6 +29,7 @@ const LuckyDayCycleDetailPage = () => {
     data?.resData?.map((item: GetLuckyDayCycleDetail) => ({
       date: item.date,
       dtlNo: item.dtlNo,
+      reviewCheck: item.reviewCheck,
     })) || [];
 
   return (
@@ -44,7 +45,11 @@ const LuckyDayCycleDetailPage = () => {
               width="80px"
               height="80px"
               textColor={theme.colors.white}
-              fillColor={theme.colors.purple}
+              fillColor={
+                label.reviewCheck === 1
+                  ? theme.colors.lightOrange
+                  : theme.colors.purple
+              }
               onClick={() => navigate(`/luckydays/${label.dtlNo}`)}
             />
           ))}
@@ -52,6 +57,4 @@ const LuckyDayCycleDetailPage = () => {
       </S.ContentsBox>
     </SingleButtonLayout>
   );
-};
-
-export default LuckyDayCycleDetailPage;
+}

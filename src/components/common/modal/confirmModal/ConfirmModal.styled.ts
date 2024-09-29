@@ -96,7 +96,7 @@ export const BaseButton = styled.button`
 
 export const SubTitle = styled.div`
   ${({ theme }) => css`
-    ${theme.fonts.body2};
+    ${theme.fonts.body1};
     position: absolute;
     display: flex;
     width: 100%;
