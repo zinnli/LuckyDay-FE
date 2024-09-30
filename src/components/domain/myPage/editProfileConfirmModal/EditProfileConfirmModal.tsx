@@ -32,36 +32,34 @@ export default function EditProfileConfirmModal({
   };
 
   return (
-    <>
-      <BaseModal>
-        <S.ModalContainer>
-          <S.Text_h1>프로필 설정 확인</S.Text_h1>
-          <S.Logo_Basic />
-          <S.Text_h2>
-            변경된 메일 주소 <br />
-            <S.Email isLongEmail={isLongEmail}>{email}</S.Email>으로 <br />
-            럭키 데이 전날에 알림 메일이 발송됩니다.
-          </S.Text_h2>
-          <S.ButtonBox>
-            <SvgButton
-              label="취소"
-              onClick={onClose}
-              icon={<ShortBoxIcon />}
-              width="100px"
-              height="42px"
-            ></SvgButton>
-            <SvgButton
-              label="확인"
-              onClick={handleConfirmClick}
-              icon={<ShortBoxIcon />}
-              textColor={theme.colors.white}
-              fillColor={theme.colors.purple}
-              width="100px"
-              height="42px"
-            ></SvgButton>
-          </S.ButtonBox>
-        </S.ModalContainer>
-      </BaseModal>
-    </>
+    <BaseModal>
+      <S.ModalContainer>
+        <S.Text_h1>프로필 설정 확인</S.Text_h1>
+        <S.Logo_Basic />
+        <S.Text_h2>
+          변경된 메일 주소 <br />
+          <S.Email isLongEmail={isLongEmail}>{email}</S.Email>으로 <br />
+          럭키 데이 전날에 알림 메일이 발송됩니다.
+        </S.Text_h2>
+        <S.ButtonBox>
+          <SvgButton
+            label="취소"
+            onClick={onClose}
+            icon={<ShortBoxIcon />}
+            width="100px"
+            height="42px"
+          ></SvgButton>
+          <SvgButton
+            label="확인"
+            onClick={handleConfirmClick}
+            icon={<ShortBoxIcon />}
+            textColor={theme.colors.white}
+            fillColor={theme.colors.purple}
+            width="100px"
+            height="42px"
+          />
+        </S.ButtonBox>
+      </S.ModalContainer>
+    </BaseModal>
   );
 }

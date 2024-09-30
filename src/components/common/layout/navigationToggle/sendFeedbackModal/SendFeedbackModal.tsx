@@ -5,9 +5,9 @@ import { useTheme } from "@emotion/react";
 import { useToast } from "hooks";
 import { useSendFeedback } from "services";
 import { FeedbackFormValues } from "types";
+import { SendFeedbackMessage } from "../sendFeedbackMessage";
 import { BaseModal, SvgButton, PageSpinner } from "components";
 import { ShortBoxIcon } from "assets";
-import { SendFeedbackMessage } from "../sendFeedbackMessage";
 
 interface SendFeedbackModalProps {
   onClose: () => void;

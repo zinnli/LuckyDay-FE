@@ -19,22 +19,20 @@ export default function CountLuckyDayModal({
   };
 
   return (
-    <>
-      <ConfirmModal
-        css={S.modal}
-        baseLabel="OK"
-        handleBaseClick={handleConfirmClick}
-      >
-        <SvgButton
-          label={label}
-          onClick={handleConfirmClick}
-          icon={<LargeBoxIcon />}
-          textColor={theme.colors.black}
-          fillColor={theme.colors.lightPurple}
-          width="240px"
-          height="200px"
-        ></SvgButton>
-      </ConfirmModal>
-    </>
+    <ConfirmModal
+      css={S.modal}
+      baseLabel="OK"
+      handleBaseClick={handleConfirmClick}
+    >
+      <SvgButton
+        label={label}
+        onClick={handleConfirmClick}
+        icon={<LargeBoxIcon />}
+        textColor={theme.colors.black}
+        fillColor={theme.colors.lightPurple}
+        width="240px"
+        height="200px"
+      ></SvgButton>
+    </ConfirmModal>
   );
 }

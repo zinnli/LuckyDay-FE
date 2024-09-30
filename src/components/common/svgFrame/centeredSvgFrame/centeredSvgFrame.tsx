@@ -16,12 +16,10 @@ function CenteredSvgFrame({
   onClick,
 }: CenteredSvgFramProps) {
   return (
-    <>
-      <S.SvgWrapper className={className} onClick={onClick}>
-        {children}
-        <S.Text color={textColor}>{label}</S.Text>
-      </S.SvgWrapper>
-    </>
+    <S.SvgWrapper className={className} onClick={onClick}>
+      {children}
+      <S.Text color={textColor}>{label}</S.Text>
+    </S.SvgWrapper>
   );
 }
 

@@ -203,41 +203,39 @@ export default function LuckyBalls() {
   };
 
   return (
-    <>
-      <S.Container>
-        <S.RowBox>
-          {luckyBallData.row1.map((ball, index) => (
-            <CenteredSvgFrame
-              key={index}
-              onClick={() => handleLuckyBallClick(ball)}
-            >
-              {renderLuckyBall(ball, index)}
-            </CenteredSvgFrame>
-          ))}
-        </S.RowBox>
+    <S.Container>
+      <S.RowBox>
+        {luckyBallData.row1.map((ball, index) => (
+          <CenteredSvgFrame
+            key={index}
+            onClick={() => handleLuckyBallClick(ball)}
+          >
+            {renderLuckyBall(ball, index)}
+          </CenteredSvgFrame>
+        ))}
+      </S.RowBox>
 
-        <S.RowBox>
-          {luckyBallData.row2.map((ball, index) => (
-            <CenteredSvgFrame
-              key={index}
-              onClick={() => handleLuckyBallClick(ball)}
-            >
-              {renderLuckyBall(ball, index)}
-            </CenteredSvgFrame>
-          ))}
-        </S.RowBox>
+      <S.RowBox>
+        {luckyBallData.row2.map((ball, index) => (
+          <CenteredSvgFrame
+            key={index}
+            onClick={() => handleLuckyBallClick(ball)}
+          >
+            {renderLuckyBall(ball, index)}
+          </CenteredSvgFrame>
+        ))}
+      </S.RowBox>
 
-        <S.RowBox>
-          {luckyBallData.row3.map((ball, index) => (
-            <CenteredSvgFrame
-              key={index}
-              onClick={() => handleLuckyBallClick(ball)}
-            >
-              {renderLuckyBall(ball, index)}
-            </CenteredSvgFrame>
-          ))}
-        </S.RowBox>
-      </S.Container>
-    </>
+      <S.RowBox>
+        {luckyBallData.row3.map((ball, index) => (
+          <CenteredSvgFrame
+            key={index}
+            onClick={() => handleLuckyBallClick(ball)}
+          >
+            {renderLuckyBall(ball, index)}
+          </CenteredSvgFrame>
+        ))}
+      </S.RowBox>
+    </S.Container>
   );
 }
