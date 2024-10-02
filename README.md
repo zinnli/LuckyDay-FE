@@ -6,8 +6,8 @@
 
 ## 개요
 
-- 프로젝트 이름 : LuckyDay
-- 프로젝트 기간 : 2024.05 ~ 진행중
+- 프로젝트 이름 : Lucky Day
+- 프로젝트 기간 : 2024.04 ~ 2024.06 (최초 배포 이후 develop 중입니다.)
 - 멤버 : FE - 김유래, 이현진
 - 배포 : [https://luckyday.swygbro.com/](https://luckyday.swygbro.com/)
 
@@ -19,9 +19,7 @@
 
 #### [3. 화면 구성](#-화면-구성)
 
-#### [4. 트러블 슈팅](#트러블-슈팅)
-
-#### [5. 멤버 소개](#멤버-소개)
+#### [4. 멤버 소개](#멤버-소개)
 
 ### 🔧 기술 스택
 
@@ -51,11 +49,18 @@
 
 ### 💻 화면 구성
 
-### 🔑 트러블 슈팅
+<img width="1032" alt="스크린샷 2024-10-02 오후 10 39 17" src="https://github.com/user-attachments/assets/70561dbb-f7a5-4c17-b05a-5beddab9ab85">
+
+<img width="1032" alt="스크린샷 2024-10-02 오후 10 39 20" src="https://github.com/user-attachments/assets/8bee8294-5182-479b-a15d-d00512375392">
+
+<img width="1032" alt="스크린샷 2024-10-02 오후 10 39 22" src="https://github.com/user-attachments/assets/846413f5-5aa3-4cd9-bfb2-6ad5501fc9c1">
+
+<img width="1032" alt="스크린샷 2024-10-02 오후 10 39 24" src="https://github.com/user-attachments/assets/15cf6374-7ca2-47a5-aa4e-d66591fe7213">
+
 
 ### 💛 멤버 소개
 
 |        |               MEMBER                |               MEMBER                |
 | ------ | :---------------------------------: | :---------------------------------: |
 | NAME   |               김유래                |               이현진                |
-| GITHUB | [yoorae](https://github.com/yrk721) | [zinnli](https://github.com/zinnli) |
+| GITHUB | [yoorae](https://github.com/yooleng) | [zinnli](https://github.com/zinnli) |
