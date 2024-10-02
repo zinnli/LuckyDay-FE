@@ -49,13 +49,13 @@
 
 ### 💻 화면 구성
 
-<img width="1032" alt="스크린샷 2024-10-02 오후 10 39 17" src="https://github.com/user-attachments/assets/70561dbb-f7a5-4c17-b05a-5beddab9ab85">
+![화면 구성1](https://github.com/user-attachments/assets/871062cf-27aa-4984-b5a2-5f1afe4e5395)
 
-<img width="1032" alt="스크린샷 2024-10-02 오후 10 39 20" src="https://github.com/user-attachments/assets/8bee8294-5182-479b-a15d-d00512375392">
+![화면 구성2](https://github.com/user-attachments/assets/aa6cbc7e-4ccb-42c2-821d-745a8b46d4c7)
 
-<img width="1032" alt="스크린샷 2024-10-02 오후 10 39 22" src="https://github.com/user-attachments/assets/846413f5-5aa3-4cd9-bfb2-6ad5501fc9c1">
+![화면 구성3](https://github.com/user-attachments/assets/f2d1e742-874c-4af7-8690-c781a7bca9ce)
 
-<img width="1032" alt="스크린샷 2024-10-02 오후 10 39 24" src="https://github.com/user-attachments/assets/15cf6374-7ca2-47a5-aa4e-d66591fe7213">
+![화면 구성4](https://github.com/user-attachments/assets/4913bcff-b040-4da4-baa0-d0fa91ede896)
 
 
 ### 💛 멤버 소개
