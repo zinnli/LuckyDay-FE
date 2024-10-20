@@ -36,7 +36,7 @@ export const ReviewBox = styled.div`
 
   @media (max-width: 390px) {
     max-width: 350px;
-    margin: 24px;
+    margin: 20px;
   }
 `;
 
@@ -46,6 +46,11 @@ export const TextBox = styled.div`
     ${theme.fonts.headline1};
     text-align: center;
     white-space: pre-wrap;
+    padding: 4% 0px 0px 0px;
+
+    @media (max-height: 700px) {
+      padding: 0px;
+    }
   `}
 `;
 
@@ -116,9 +121,9 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 70%;
-  height: 60px;
+  height: 70px;
 
-  @media (max-width: 380px) {
+  @media (max-height: 700px) {
     margin-top: -20px;
   }
 `;

@@ -209,7 +209,7 @@ export default function ReviewLuckyDayPage() {
             onClick={handleSubmit(onSubmit)}
             label={isEditMode ? "수정하기" : "저장하기"}
             icon={<ShortBoxIcon />}
-            width="120px"
+            width="100px"
             height="50px"
             disabled={isButtonDisabled}
           />

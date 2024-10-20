@@ -42,8 +42,8 @@ export default function LuckyDayCycleDetailPage() {
               key={index}
               label={label.date}
               icon={<CircleBoxIcon />}
-              width="80px"
-              height="80px"
+              width="75px"
+              height="75px"
               textColor={theme.colors.white}
               fillColor={
                 label.reviewCheck === 1

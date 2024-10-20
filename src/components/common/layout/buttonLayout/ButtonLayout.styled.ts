@@ -37,7 +37,7 @@ export const ButtonBox = styled.div<{
   variant: "hasIcon" | "hasColor";
 }>`
   ${({ theme, isSecond, variant }) => css`
-    ${theme.fonts.headline1};
+    ${theme.fonts.headline2};
     position: absolute;
     top: ${variant === "hasColor" && !isSecond ? "12px" : "9px"};
     left: ${variant === "hasColor"

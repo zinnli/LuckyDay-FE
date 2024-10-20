@@ -7,6 +7,7 @@ export const LayoutContainer = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
+    height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
     background-color: ${theme.colors.background};
 
@@ -17,10 +18,24 @@ export const LayoutContainer = styled.div`
 `;
 
 export const Layout = styled.div`
+  position: relative;
   max-width: 430px;
   width: 100%;
-  height: auto;
+  height: 100%;
   background-size: cover;
   background-position: center;
   background-image: url("/images/background.webp");
+`;
+
+export const HeaderContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+`;
+
+export const Content = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 70px;
 `;

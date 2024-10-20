@@ -19,18 +19,19 @@ export const TextBox = styled.div`
     color: ${theme.colors.black};
     ${theme.fonts.headline1};
     margin: 10px 0px 5px 0px;
+    margin: 8% 0px 5px 0px;
     text-align: center;
     white-space: pre-wrap;
 
-    @media (max-width: 375px) {
-      margin: 0px;
+    @media (max-height: 700px) {
+      margin: 8px;
     }
   `}
 `;
 
 export const LuckyMachine = styled.div`
   position: relative;
-  max-width: 430px;
+  max-width: 420px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -43,7 +44,7 @@ export const LuckyMachine = styled.div`
   &::before {
     content: "";
     display: block;
-    padding-top: calc(625 / 430 * 100%);
+    padding-top: calc(625 / 420 * 100%);
   }
 
   & > img {

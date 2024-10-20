@@ -19,8 +19,6 @@ export const svgFrame = (theme: Theme, width: string, height: string) => css`
     width: ${width};
     height: ${height};
     margin: 10px;
-    color: ${theme.colors.black};
-    ${theme.fonts.headline1}
     cursor: pointer;
   }
 `;
@@ -48,5 +46,5 @@ export const Text = styled.div<{ color?: string }>`
   white-space: pre-line;
   transform: translate(-50%, -50%);
   color: ${(props) => props.color || props.theme.colors.black};
-  ${(props) => props.theme.fonts.headline1}
+  ${(props) => props.theme.fonts.headline2}
 `;

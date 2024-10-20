@@ -2,13 +2,13 @@ import { css } from "@emotion/react";
 
 export const fonts = {
   logo: css`
-    font-size: 2rem;
-    line-height: calc(26 / 20);
+    font-size: 1.8rem;
+    line-height: calc(23 / 18);
     font-family: "omyu", sans-serif;
   `,
   headline1: css`
-    font-size: 2rem;
-    line-height: calc(26 / 20);
+    font-size: 1.8rem;
+    line-height: calc(23 / 18);
     font-family: "omyu", sans-serif;
   `,
   headline2: css`
@@ -32,13 +32,13 @@ export const fonts = {
     font-family: "omyu", sans-serif;
   `,
   luckyBall1: css`
-    font-size: 3rem;
-    line-height: calc(35 / 30);
+    font-size: 2.7rem;
+    line-height: calc(30 / 27);
     font-family: "omyu", sans-serif;
   `,
   luckyBall2: css`
-    font-size: 2.5rem;
-    line-height: calc(30 / 25);
+    font-size: 2.3rem;
+    line-height: calc(27 / 23);
     font-family: "omyu", sans-serif;
   `,
 } as const;

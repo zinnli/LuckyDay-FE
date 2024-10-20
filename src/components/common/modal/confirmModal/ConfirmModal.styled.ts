@@ -7,7 +7,7 @@ export const baseModal = css`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 44px 21px 18px 21px;
+  padding: 45px 20px 22px 20px;
 `;
 
 export const Title = styled.div`
@@ -15,7 +15,7 @@ export const Title = styled.div`
     ${theme.fonts.headline1};
     display: flex;
     justify-content: center;
-    margin-bottom: 11px;
+    margin-bottom: 15px;
   `}
 `;
 
@@ -65,10 +65,10 @@ const button = (theme: Theme) => css`
   width: 100px;
 
   & > span {
-    ${theme.fonts.headline1};
+    ${theme.fonts.headline2};
     position: absolute;
     width: 100%;
-    top: 7px;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
   }

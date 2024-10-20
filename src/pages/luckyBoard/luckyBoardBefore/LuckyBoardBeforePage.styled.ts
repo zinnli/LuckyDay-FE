@@ -7,7 +7,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: auto;
+  height: 100%;
 
   @media (min-height: 945px) {
     min-height: 80vh;
@@ -18,20 +18,20 @@ export const TextBox = styled.div`
   ${({ theme }) => css`
     color: ${theme.colors.black};
     ${theme.fonts.headline1};
-    margin: 10px 0px 5px 0px;
+    margin: 6% 0px 5px 0px;
     text-align: center;
     white-space: pre-wrap;
 
     @media (max-width: 375px) {
       ${theme.fonts.headline2};
-      margin: 0px;
+      margin: 0;
     }
   `}
 `;
 
 export const LuckyMachine = styled.div`
   position: relative;
-  max-width: 430px;
+  max-width: 420px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -44,7 +44,7 @@ export const LuckyMachine = styled.div`
   &::before {
     content: "";
     display: block;
-    padding-top: calc(625 / 430 * 100%);
+    padding-top: calc(625 / 420 * 100%);
   }
 
   & > img {

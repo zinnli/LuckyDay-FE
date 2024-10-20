@@ -14,14 +14,13 @@ export const ContentsBox = styled.div`
 export const Logo_Basic = styled.div`
   width: 150px;
   height: 150px;
-  margin: 10px;
+  margin-top: -15%;
   background-size: 150px;
   background-repeat: no-repeat;
   background-position: center;
   background-image: url("/images/logo.webp");
 
   @media (max-width: 375px) {
-    margin: 0px;
     width: 120px;
     height: 120px;
     background-size: cover;
@@ -67,7 +66,7 @@ export const MailBox = styled.div<MailBoxProps>`
 
 export const TitleTextBox = styled.div`
   ${({ theme }) => css`
-    margin: 20px;
+    margin: 30px 25px 25px 25px;
     color: ${theme.colors.black};
     ${theme.fonts.luckyBall1}
   `}
@@ -75,20 +74,21 @@ export const TitleTextBox = styled.div`
 
 export const TextBox = styled.div`
   ${({ theme }) => css`
-    padding: 15px;
+    padding: 20px;
     color: ${theme.colors.black};
     ${theme.fonts.headline1};
 
     @media (max-width: 375px) {
-      padding: 0px;
+      padding: 10px;
     }
   `}
 `;
 
 export const ButtonBox = styled.div`
-  padding-top: 20px;
+  position: absolute;
+  bottom: 100px;
 
-  @media (max-width: 375px) {
-    padding-top: 0px;
+  @media (max-height: 700px) {
+    bottom: 60px;
   }
 `;

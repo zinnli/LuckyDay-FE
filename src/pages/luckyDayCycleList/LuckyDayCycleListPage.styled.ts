@@ -5,7 +5,7 @@ export const ContentsBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 25px;
+  padding: 15px 25px;
   height: 70vh;
   overflow-y: auto;
 `;
@@ -17,7 +17,6 @@ export const TitleBox = styled.div`
     justify-content: center;
     width: 100%;
     height: 60px;
-    padding: 30px;
     color: ${theme.colors.black};
     ${theme.fonts.headline1}
     border-top: 1px  solid ${theme.colors.gray};
@@ -29,18 +28,18 @@ export const MenuBox = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
-    height: 70px;
+    height: 60px;
     padding: 5px;
-    box-sizing: border-box;
     color: ${theme.colors.black};
-    ${theme.fonts.headline1}
+    ${theme.fonts.headline2}
     border-bottom: 1px solid ${theme.colors.gray};
     transition: color 0.2s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+
     &:hover {
       color: ${theme.colors.orange};
     }
-    cursor: pointer;
-    flex-shrink: 0;
   `}
 `;
 

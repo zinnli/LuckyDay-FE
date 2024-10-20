@@ -5,7 +5,7 @@ export const ContentsBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 25px;
+  padding: 15px 25px;
 `;
 
 export const TitleBox = styled.div`
@@ -34,11 +34,15 @@ export const MenuBox = styled.div`
     color: ${theme.colors.black};
     border-bottom: 1px solid ${theme.colors.gray};
     transition: color 0.2s ease;
+    cursor: pointer;
 
     &:hover {
       color: ${theme.colors.orange};
     }
-    cursor: pointer;
+
+    @media (max-width: 375px) {
+      ${theme.fonts.headline2}
+    }
   `}
 `;
 

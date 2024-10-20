@@ -24,17 +24,11 @@ export const LuckydayInfo = styled.div`
     width: 100%;
     height: 100%;
     padding-top: 8%;
+    gap: 8px;
 
-    span:first-of-type {
-      ${theme.fonts.headline1};
-    }
-
+    span:first-of-type,
     span:last-of-type {
-      ${theme.fonts.luckyBall2};
-
-      @media (max-width: 390px) {
-        ${theme.fonts.headline1};
-      }
+      ${theme.fonts.headline1};
     }
   `}
 `;
@@ -86,7 +80,7 @@ export const LuckydayDetailInfo = styled.div<LuckydayDetailInfoProps>`
 `;
 
 export const svgFrame = (theme: Theme) => css`
-  width: 120px;
+  width: 100px;
 
   path {
     fill: ${theme.colors.beige};
@@ -96,10 +90,10 @@ export const svgFrame = (theme: Theme) => css`
 export const Button = styled.button`
   ${({ theme }) => css`
     position: relative;
-    margin: 10px 0px 20px 0px;
+    margin: 8% 0px;
 
     & > span {
-      ${theme.fonts.headline1};
+      ${theme.fonts.headline2};
       position: absolute;
       top: 50%;
       left: 50%;

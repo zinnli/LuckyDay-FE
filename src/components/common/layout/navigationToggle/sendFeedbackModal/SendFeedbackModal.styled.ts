@@ -33,7 +33,7 @@ export const Textarea = styled.textarea`
     border-top: 1px solid ${theme.colors.gray};
 
     ::placeholder {
-      ${theme.fonts.headline3};
+      ${theme.fonts.headline2};
       color: ${theme.colors.gray};
     }
   `}

@@ -35,7 +35,7 @@ export const ReviewBox = styled.div`
 
   @media (max-width: 390px) {
     max-width: 350px;
-    margin: 24px;
+    margin: 10px;
   }
 `;
 
@@ -45,6 +45,11 @@ export const TextBox = styled.div`
     ${theme.fonts.headline1};
     text-align: center;
     white-space: pre-wrap;
+    padding: 4% 0px 0px 0px;
+
+    @media (max-height: 700px) {
+      padding: 0px;
+    }
   `}
 `;
 

@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 
 export const NotFound = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,7 +14,7 @@ export const NotFound = styled.div`
 export const Logo_Sad = styled.div`
   width: 150px;
   height: 150px;
-  margin-bottom: 50px;
+  margin-bottom: 25%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -29,6 +29,7 @@ export const Logo_Sad = styled.div`
 
 export const Text_404 = styled.div`
   ${({ theme }) => css`
+    margin-top: -10%;
     color: ${theme.colors.lightOrange};
     ${theme.fonts.luckyBall1}
   `}

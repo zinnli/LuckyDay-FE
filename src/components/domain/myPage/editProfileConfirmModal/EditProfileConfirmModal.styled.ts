@@ -8,13 +8,13 @@ export const ModalContainer = styled.div`
   justify-content: center;
   text-align: center;
   width: 100%;
-  padding: 50px 20px 20px 20px;
+  padding: 45px 20px 20px 20px;
 `;
 
 export const Logo_Basic = styled.div`
   width: 100px;
   height: 100px;
-  margin: 30px 0px 15px 0px;
+  margin: 30px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -32,7 +32,7 @@ export const Text_h2 = styled.div`
   ${({ theme }) => css`
     color: ${theme.colors.black};
     ${theme.fonts.headline2};
-    margin: 20px 0px 30px 0px;
+    margin: 4px 0px;
   `}
 `;
 
@@ -49,7 +49,9 @@ export const Email = styled.div<EmailProps>`
 `;
 
 export const ButtonBox = styled.div`
+  position: absolute;
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  bottom: 22px;
+  width: 86%;
 `;

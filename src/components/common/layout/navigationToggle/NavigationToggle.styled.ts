@@ -6,15 +6,15 @@ export const MenuIcon = styled.div`
   margin-right: 20px;
   cursor: pointer;
   & > svg {
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
   }
 `;
 
 export const ToggleBox = styled.div<{ isVisible: boolean }>`
-  position: absolute;
+  position: fixed;
   width: 200px;
-  height: 490px;
+  height: 470px;
   border-radius: 15px 0px 0px 15px;
   box-shadow: -4px 4px 4px 0px #00000040;
   background-size: cover;
@@ -24,16 +24,16 @@ export const ToggleBox = styled.div<{ isVisible: boolean }>`
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   transform: ${({ isVisible }) => (isVisible ? "scale(1)" : "scale(0.95)")};
   pointer-events: ${({ isVisible }) => (isVisible ? "auto" : "none")};
-  z-index: 3;
+  z-index: 10;
 `;
 
 export const ToggleContentsBox = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
-    padding: 40px 20px 40px 20px;
+    padding: 20px;
     color: ${theme.colors.black};
-    ${theme.fonts.logo};
+    ${theme.fonts.headline2};
   `}
 `;
 
@@ -41,6 +41,7 @@ export const ProfileBox = styled.div`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
+    color: ${theme.colors.black};
     ${theme.fonts.headline2};
   `}
 `;
@@ -58,21 +59,22 @@ export const ToggleMenuBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 20px 5px 20px 5px;
+  margin: 20px 5px;
 `;
 
 export const ToggleMenuBottom = styled.div`
   ${({ theme }) => css`
     width: 100%;
-    height: 65px;
+    height: 60px;
     display: flex;
     align-items: center;
     color: ${theme.colors.black};
     transition: color 0.2s ease;
+    cursor: pointer;
+
     &:hover {
       color: ${theme.colors.orange};
     }
-    cursor: pointer;
   `}
 `;
 

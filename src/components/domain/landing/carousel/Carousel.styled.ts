@@ -32,20 +32,30 @@ export const Image = styled.img`
   max-width: 430px;
   max-height: 414px;
   object-fit: contain;
+  margin-bottom: 5%;
 
   @media (max-width: 405px) {
     max-height: 310px;
+  }
+
+  @media (max-height: 700px) {
+    margin: 0px;
   }
 `;
 
 export const TextBox = styled.div`
   ${({ theme }) => css`
     width: 315px;
-    padding: 5% 0px;
+    height: 60px;
+    margin: 0px 0px 24px 0px;
     text-align: center;
     white-space: pre-wrap;
     ${theme.fonts.logo};
     color: ${theme.colors.black};
+
+    @media (max-height: 700px) {
+      margin: 0px;
+    }
   `}
 `;
 
@@ -59,6 +69,10 @@ export const ButtonContainer = styled.div`
 
   @media (max-width: 405px) {
     width: 88%;
+  }
+
+  @media (max-height: 700px) {
+    margin: 4% 0px;
   }
 `;
 

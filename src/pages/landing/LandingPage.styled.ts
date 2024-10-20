@@ -6,8 +6,8 @@ export const Landing = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: auto;
-  min-height: calc(100vh - 80px);
+  height: 100%;
+  min-height: calc(100vh - 70px);
   z-index: 1;
 
   @media (min-height: 670px) {

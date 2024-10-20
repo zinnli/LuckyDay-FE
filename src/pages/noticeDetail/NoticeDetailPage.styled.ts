@@ -33,6 +33,10 @@ export const NoticeTitle = styled.div`
     ${theme.fonts.headline1}
     color: ${theme.colors.black};
     border-bottom: 1px solid ${theme.colors.lightPurple};
+
+    @media (max-width: 375px) {
+      ${theme.fonts.headline2}
+    }
   `}
 `;
 

@@ -11,8 +11,8 @@ export const CreateLuckyDayButton = styled.button`
   cursor: pointer;
 
   & > svg {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
   }
 
   @media (max-width: 390px) {
@@ -20,8 +20,8 @@ export const CreateLuckyDayButton = styled.button`
     height: 60px;
 
     & > svg {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
     }
   }
 
@@ -30,8 +30,8 @@ export const CreateLuckyDayButton = styled.button`
     height: 50px;
 
     & > svg {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
     }
   }
 `;
