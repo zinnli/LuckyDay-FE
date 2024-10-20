@@ -16,3 +16,4 @@ export { default as NoticeListPage } from "./noticeList/NoticeListPage";
 export { default as NoticeDetailPage } from "./noticeDetail/NoticeDetailPage";
 export { default as InfoPage } from "./info/InfoPage";
 export { default as Error404Page } from "./404/Error404Page";
+export { default as TutorialPage } from "./tutorial/TutorialPage";

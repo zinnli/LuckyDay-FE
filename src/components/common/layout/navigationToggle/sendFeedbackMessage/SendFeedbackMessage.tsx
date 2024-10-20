@@ -33,7 +33,7 @@ export default function SendFeedbackMessage({
       css={S.modal}
       title="피드백이 전달되고 있어요!"
       subTitle={subTitle}
-      cancelLabel="취소"
+      cancelLabel="닫기"
       baseLabel="바로가기"
       handleCancelClick={handleCancelClick}
       handleBaseClick={handleConfirmClick}

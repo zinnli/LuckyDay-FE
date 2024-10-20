@@ -32,7 +32,7 @@ export default function CountLuckyDayModal({
         fillColor={theme.colors.lightPurple}
         width="240px"
         height="200px"
-      ></SvgButton>
+      />
     </ConfirmModal>
   );
 }

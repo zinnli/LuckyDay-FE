@@ -1,8 +1,8 @@
 import { Global, ThemeProvider } from "@emotion/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { Modal, Toast } from "components";
+import { TutorialProvider, TutorialLayout, Modal, Toast } from "components";
 import { globalStyle, theme } from "styles";
 import Router from "router/Router";
 import "./styles/fonts.css";
@@ -20,21 +20,22 @@ dayjs.locale("ko");
 
 const queryClient = new QueryClient();
 
-function App() {
+export default function App() {
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <Global styles={globalStyle} />
-          <Router>
-            <Modal />
-            <Toast />
-          </Router>
+          <TutorialProvider>
+            <Router>
+              <Modal />
+              <Toast />
+            </Router>
+            <TutorialLayout />
+          </TutorialProvider>
           {/* Fix: 레이아웃 수정 예정 */}
         </ThemeProvider>
       </QueryClientProvider>
     </RecoilRoot>
   );
 }
-
-export default App;

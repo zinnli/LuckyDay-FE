@@ -1,7 +1,7 @@
 import * as S from "./LandingPage.styled";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Carousel, KakaoLogin } from "components/domain";
+import { Carousel, KakaoLogin, TutorialStartButton } from "components/domain";
 import Cookies from "js-cookie";
 
 export default function LandingPage() {
@@ -37,6 +37,7 @@ export default function LandingPage() {
       <S.ContentsBox>
         <Carousel images={images} texts={texts} />
         {!Cookies.get("accessToken") && <KakaoLogin />}
+        <TutorialStartButton />
       </S.ContentsBox>
     </S.Landing>
   );

@@ -5,6 +5,7 @@ export const MenuIcon = styled.div`
   position: relative;
   margin-right: 20px;
   cursor: pointer;
+
   & > svg {
     width: 30px;
     height: 30px;
