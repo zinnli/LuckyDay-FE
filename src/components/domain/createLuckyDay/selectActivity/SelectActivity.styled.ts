@@ -11,6 +11,10 @@ export const HeadLineWrapper = styled.div`
 export const HeadLine = styled.span`
   ${({ theme }) => css`
     ${theme.fonts.headline1};
+
+    @media (max-width: 380px) {
+      ${theme.fonts.headline2};
+    }
   `}
 `;
 
@@ -50,6 +54,26 @@ export const Button = styled.button<{ isNotChecked: boolean }>`
       & > path {
         fill: ${!isNotChecked && theme.colors.white};
       }
+    }
+
+    @media (max-width: 380px) {
+      & > span {
+        ${theme.fonts.headline2};
+      }
+      & > svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  `}
+`;
+
+export const CustomInfoText = styled.span`
+  ${({ theme }) => css`
+    ${theme.fonts.body1};
+
+    & > strong {
+      color: ${theme.colors.orange};
     }
   `}
 `;

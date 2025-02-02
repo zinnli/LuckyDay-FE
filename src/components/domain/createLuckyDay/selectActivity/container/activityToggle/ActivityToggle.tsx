@@ -137,6 +137,7 @@ function ActivityToggle({
       >
         <S.Img
           // TODO:innerShadow값이 있어 이미지로 따로 설정해줌
+          isOpen={isOpen}
           src={
             isOpen
               ? "images/img_empty_mediumBox.webp"
@@ -188,19 +189,21 @@ function ActivityToggle({
                   <S.customActiviyItem ref={spanRef}>
                     {text}
                   </S.customActiviyItem>
-                  <S.CustomActivity
-                    ref={activityRef}
-                    key={activities[5].label}
-                    onClick={handleStopPropagation}
-                  >
-                    <Input
-                      value={text}
-                      css={S.input(inputWidth)}
-                      placeholder=""
-                      handleChange={handleCustomItemChange}
-                      handleKeyDown={handleEnterCustomItemChange}
-                    />
-                  </S.CustomActivity>
+                  {(watch("customActList")?.length || 0) < 5 && (
+                    <S.CustomActivity
+                      ref={activityRef}
+                      key={activities[5].label}
+                      onClick={handleStopPropagation}
+                    >
+                      <Input
+                        value={text}
+                        css={S.input(inputWidth)}
+                        placeholder=""
+                        handleChange={handleCustomItemChange}
+                        handleKeyDown={handleEnterCustomItemChange}
+                      />
+                    </S.CustomActivity>
+                  )}
                   {watch("customActList")?.map((item, i) => {
                     return (
                       <S.CustomActivity
@@ -221,7 +224,7 @@ function ActivityToggle({
         </S.ActivityBox>
         {isOpen && (
           <S.CustomInfo isCustom={activity.label === activities[5].label}>
-            <S.ContentLength>{text.length}/14</S.ContentLength>
+            <S.ContentLength>{text.length}/14자</S.ContentLength>
             <S.AddButton onClick={handleAddCustomActivity}>추가</S.AddButton>
           </S.CustomInfo>
         )}

@@ -94,24 +94,31 @@ function SelectActivity({
           if (!actNos) return null;
 
           return (
-            <ActivityToggle
-              key={activity.label}
-              activity={activity}
-              getSelectItems={getSelectItems}
-              setValue={setValue}
-              watch={watch}
-              data={data?.resData?.find(
-                (item) => item.category === activity.label
+            <>
+              <ActivityToggle
+                key={activity.label}
+                activity={activity}
+                getSelectItems={getSelectItems}
+                setValue={setValue}
+                watch={watch}
+                data={data?.resData?.find(
+                  (item) => item.category === activity.label
+                )}
+                checked={watch(`acts.${i}.checked`)}
+                index={i}
+                toggle={toggle}
+                isOpen={
+                  toggle === activity.label ||
+                  (activity.label === toggle && toggle === "+) 직접 입력")
+                }
+                handleToggle={handleToggle}
+              />
+              {toggle === "+) 직접 입력" && i === 5 && (
+                <S.CustomInfoText>
+                  직접 입력 활동은 최대 <strong>5개</strong>까지 추가 가능해요.
+                </S.CustomInfoText>
               )}
-              checked={watch(`acts.${i}.checked`)}
-              index={i}
-              toggle={toggle}
-              isOpen={
-                toggle === activity.label ||
-                (activity.label === toggle && toggle === "+) 직접 입력")
-              }
-              handleToggle={handleToggle}
-            />
+            </>
           );
         })}
       </S.Activities>
