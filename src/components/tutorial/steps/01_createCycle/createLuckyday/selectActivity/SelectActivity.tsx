@@ -45,32 +45,39 @@ function SelectActivity({
       <S.Activities>
         {activities.map((activity, i) => {
           return (
-            <ActivityToggle
-              key={activity.label}
-              activity={activity}
-              data={luckydayActs.find(
-                (item) => item.category === activity.label
+            <>
+              <ActivityToggle
+                key={activity.label}
+                activity={activity}
+                data={luckydayActs.find(
+                  (item) => item.category === activity.label
+                )}
+                checked={
+                  ((isFourthSubStep && i === 1) ||
+                    (isFifthSubStep && i === 1) ||
+                    (isSixthSubStep && i === 2) ||
+                    (isSixthSubStep && i === 1) ||
+                    ((isSeventhSubStep || isLastSubStep) &&
+                      (i === 1 || i === 2))) ??
+                  false
+                }
+                index={i}
+                isFourthSubStep={isFourthSubStep}
+                isSixthSubStep={isSixthSubStep}
+                isOpen={
+                  ((isThirdSubStep && i === 1) ||
+                    (isFourthSubStep && i === 1) ||
+                    ((isFifthSubStep || isSixthSubStep) && i === 2) ||
+                    ((isSeventhSubStep || isLastSubStep) && i === 5)) ??
+                  false
+                }
+              />
+              {(isSeventhSubStep || isLastSubStep) && i === 5 && (
+                <S.CustomInfoText>
+                  직접 입력 활동은 최대 <strong>5개</strong>까지 추가 가능해요.
+                </S.CustomInfoText>
               )}
-              checked={
-                ((isFourthSubStep && i === 1) ||
-                  (isFifthSubStep && i === 1) ||
-                  (isSixthSubStep && i === 2) ||
-                  (isSixthSubStep && i === 1) ||
-                  ((isSeventhSubStep || isLastSubStep) &&
-                    (i === 1 || i === 2))) ??
-                false
-              }
-              index={i}
-              isFourthSubStep={isFourthSubStep}
-              isSixthSubStep={isSixthSubStep}
-              isOpen={
-                ((isThirdSubStep && i === 1) ||
-                  (isFourthSubStep && i === 1) ||
-                  ((isFifthSubStep || isSixthSubStep) && i === 2) ||
-                  ((isSeventhSubStep || isLastSubStep) && i === 5)) ??
-                false
-              }
-            />
+            </>
           );
         })}
       </S.Activities>

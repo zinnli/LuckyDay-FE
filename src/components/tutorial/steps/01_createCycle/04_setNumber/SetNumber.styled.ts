@@ -31,6 +31,10 @@ export const Button = styled.button`
   bottom: 7%;
   right: 5%;
   width: 90px;
+
+  @media (max-width: 380px) {
+    bottom: 6%;
+  }
 `;
 
 export const beigeIcon = (theme: Theme) => css`
@@ -51,10 +55,9 @@ export const SelectDatesWrapper = styled.div`
   column-gap: 30px;
   width: 100%;
   margin: 0 0 200px;
-  //TODO: 간격 맞추기 위해 margin 추가 -> layout 확정 후 수정 예정
 
   @media (max-width: 380px) {
-    margin: 80px 0 110px;
+    margin: 0 0 110px;
   }
 `;
 

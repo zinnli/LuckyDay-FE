@@ -31,6 +31,10 @@ export const Button = styled.button`
   bottom: 7%;
   right: 5%;
   width: 90px;
+
+  @media (max-width: 380px) {
+    bottom: 6%;
+  }
 `;
 
 export const beigeIcon = (theme: Theme) => css`

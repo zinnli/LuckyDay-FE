@@ -41,6 +41,7 @@ function ActivityToggle({
         isOpen={isOpen}
       >
         <S.Img
+          isOpen={isOpen}
           // TODO:innerShadow값이 있어 이미지로 따로 설정해줌
           src={
             isOpen
@@ -103,7 +104,7 @@ function ActivityToggle({
         </S.ActivityBox>
         {isOpen && (
           <S.CustomInfo isCustom={activity.label === activities[5].label}>
-            <S.ContentLength>0/14</S.ContentLength>
+            <S.ContentLength>0/14자</S.ContentLength>
             <S.AddButton>추가</S.AddButton>
           </S.CustomInfo>
         )}

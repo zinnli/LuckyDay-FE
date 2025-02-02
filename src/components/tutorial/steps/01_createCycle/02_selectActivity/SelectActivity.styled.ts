@@ -17,12 +17,13 @@ export const ActivityButton = styled.div<{
 }>`
   ${({ isOpen, isDisabled }) => css`
     position: relative;
-    width: ${isOpen ? "382px" : "368px"};
+    width: 368px;
     height: fit-content;
+    margin-bottom: ${isOpen && "16px"};
     cursor: ${isDisabled && "not-allowed"};
 
     @media (max-width: 380px) {
-      width: ${isOpen ? "328px" : "328px"};
+      width: 308px;
     }
   `}
 `;
@@ -38,7 +39,7 @@ export const ActivityBox = styled.div<{ isOpen: boolean }>`
     right: 0;
     width: 100%;
     //NOTE: 피그마와 다르게 적용해야 제 위치에 붙음
-    padding: ${isOpen ? "0 27px 0 37px" : "0 20px 0 30px"};
+    padding: ${isOpen ? "0 20px 0 37px" : "0 20px 0 30px"};
 
     @media (max-width: 380px) {
       padding: ${isOpen ? "0 17px 0 28px" : "0 10px 0 23px"};
@@ -55,19 +56,19 @@ export const ActivityInfo = styled.div<{ isOpen: boolean; isChecked: boolean }>`
     column-gap: 10px;
     align-items: center;
     height: fit-content;
-    padding: 15px 0 ${isOpen ? "8px" : "18px"} 0;
+    padding: 15px 0 ${isOpen ? "20px" : "18px"} 0;
     text-align: start;
     cursor: pointer;
 
     & > svg:first-of-type {
-      margin: 8px 5px 0 5px;
+      margin: ${isOpen ? "8px 0 0 -3px" : "8px 5px 0 5px"};
     }
 
     @media (max-width: 380px) {
-      padding: 9px 0 ${isOpen ? "8px" : "18px"} 0;
+      padding: 11px 0 ${isOpen ? "8px" : "18px"} 0;
 
       & > svg:first-of-type {
-        margin: 5px 5px 0 5px;
+        margin-left: ${isOpen ? "-3px" : "3px"};
       }
     }
   `}
@@ -79,7 +80,7 @@ export const ActivityTitle = styled.span`
     margin-top: 4%;
 
     @media (max-width: 380px) {
-      ${theme.fonts.headline1};
+      ${theme.fonts.headline3};
     }
   `}
 `;
@@ -101,7 +102,7 @@ export const Activities = styled.div`
   flex-wrap: wrap;
 
   @media (max-width: 380px) {
-    width: 290px;
+    width: 260px;
   }
 `;
 
@@ -117,7 +118,6 @@ export const Activity = styled.button<{
     width: fit-content;
     border-radius: 30px;
     padding: ${isSelected ? "0 11px 0 6px" : "0 11px"};
-    //TODO: 선택 불가능한 버튼 disabled 효과 추가 필요(현재 임시컬러)
     color: ${isSelected
       ? theme.colors.black
       : !isClickable
@@ -142,7 +142,7 @@ export const Activity = styled.button<{
     }
 
     @media (max-width: 380px) {
-      ${theme.fonts.headline3};
+      ${theme.fonts.headline2};
     }
   `}
 `;
@@ -171,17 +171,25 @@ export const CustomInfo = styled.div<{ isCustom?: boolean }>`
   ${({ theme, isCustom }) => css`
     ${theme.fonts.body1};
     position: absolute;
-    bottom: 60px; //NOTE: 확인필요
-    left: 0;
+    bottom: 20px;
+    right: 20px;
     display: ${isCustom ? "flex" : "none"};
-    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 5px;
+    width: fit-content;
+
+    @media (max-width: 380px) {
+      & > span,
+      button {
+        ${theme.fonts.body2};
+      }
+    }
   `}
 `;
 
 export const ContentLength = styled.span`
   ${({ theme }) => css`
-    position: absolute;
-    left: 40px;
     color: ${theme.colors.black};
   `}
 `;
@@ -189,10 +197,8 @@ export const ContentLength = styled.span`
 export const AddButton = styled.button`
   ${({ theme }) => css`
     ${theme.fonts.body1};
-    position: absolute;
-    right: 40px;
-    width: 60px;
     height: 20px;
+    padding: 0 18px;
     border-radius: 10px;
     color: ${theme.colors.lightBeige};
     background-color: ${theme.colors.black};
@@ -220,7 +226,7 @@ export const CustomActivityWrapper = styled.div`
   flex-wrap: wrap;
   column-gap: 14px;
   row-gap: 8px;
-  height: 40px;
+  height: 100%;
   overflow-y: auto;
 `;
 
@@ -283,6 +289,10 @@ export const Button = styled.button`
   bottom: 7%;
   right: 5%;
   width: 90px;
+
+  @media (max-width: 380px) {
+    bottom: 6%;
+  }
 `;
 
 export const beigeIcon = (theme: Theme) => css`
@@ -295,4 +305,14 @@ export const buttonArrowIcon = css`
   width: 24px;
   height: 24px;
   rotate: 90deg;
+`;
+
+export const CustomInfoText = styled.span`
+  ${({ theme }) => css`
+    ${theme.fonts.body1};
+
+    & > strong {
+      color: ${theme.colors.orange};
+    }
+  `}
 `;

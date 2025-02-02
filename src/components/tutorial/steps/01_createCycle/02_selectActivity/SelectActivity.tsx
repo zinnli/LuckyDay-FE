@@ -74,7 +74,7 @@ export default function SelectActivity() {
         component: (
           <S.ActivitiesRow onClick={() => handleSubStepClick(3)}>
             <S.ActivityButton isOpen={false}>
-              <S.Img src={"images/img_empty_longBox.webp"} />
+              <S.Img src="images/img_empty_longBox.webp" />
               <S.ActivityBox isOpen={false}>
                 <S.ActivityInfo isOpen={false} isChecked>
                   {activities[1].icon}
@@ -237,7 +237,7 @@ export default function SelectActivity() {
               </S.Activities>
             </S.ActivityBox>
             <S.CustomInfo isCustom>
-              <S.ContentLength>0/14</S.ContentLength>
+              <S.ContentLength>0/14자</S.ContentLength>
               <S.AddButton>추가</S.AddButton>
             </S.CustomInfo>
           </S.ActivityButton>
