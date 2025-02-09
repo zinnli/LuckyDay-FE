@@ -1,5 +1,6 @@
 import { UseFormSetValue, UseFormWatch } from "react-hook-form";
-import { CreateLuckyDayForm } from "types";
+
+import type { CreateLuckyDayForm } from "types";
 
 interface useToogleProps {
   activityLabel: string;
