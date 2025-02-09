@@ -1,18 +1,15 @@
 import React, { useRef, useState } from "react";
-import type { UseFormSetValue, UseFormWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import { useToast } from "hooks";
 import type { CreateLuckyDayForm } from "types";
 
-interface useCustomInputProps {
-  setValue: UseFormSetValue<CreateLuckyDayForm>;
-  watch: UseFormWatch<CreateLuckyDayForm>;
-}
-
-const useCustomInput = ({ setValue, watch }: useCustomInputProps) => {
+const useCustomInput = () => {
   const [text, setText] = useState("");
 
   const spanRef = useRef<HTMLSpanElement>(null);
+
+  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
 
   const inputWidth = text.length
     ? spanRef.current?.getBoundingClientRect().width

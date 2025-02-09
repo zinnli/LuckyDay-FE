@@ -32,7 +32,7 @@ function ActivityToggle({
   const ref = useRef<HTMLDivElement>(null);
   const activityRef = useRef<HTMLButtonElement>(null);
 
-  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
+  const { watch } = useFormContext<CreateLuckyDayForm>();
 
   const actNos = data?.actList.map((item) => item.actNo);
 
@@ -45,11 +45,9 @@ function ActivityToggle({
     handleEnterCustomItemChange,
     DeleteCustomActivity,
     handleAddCustomActivity,
-  } = useCustomInput({ setValue, watch });
+  } = useCustomInput();
 
   const { handleStopPropagation, handleItemClick } = useSelectActivities({
-    watch,
-    setValue,
     index,
     actNos,
   });
@@ -58,8 +56,6 @@ function ActivityToggle({
     activityLabel: activity.label,
     toggle,
     text,
-    setValue,
-    watch,
     handleToggle,
     handleEnterText,
     actNos,

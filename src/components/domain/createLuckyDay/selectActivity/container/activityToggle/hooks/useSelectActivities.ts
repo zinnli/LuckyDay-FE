@@ -1,20 +1,15 @@
-import type { UseFormSetValue, UseFormWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import type { CreateLuckyDayForm } from "types";
 
 interface useSelectActivitiesProps {
-  watch: UseFormWatch<CreateLuckyDayForm>;
-  setValue: UseFormSetValue<CreateLuckyDayForm>;
   index: number;
   actNos?: number[];
 }
 
-const useSelectActivities = ({
-  watch,
-  setValue,
-  index,
-  actNos,
-}: useSelectActivitiesProps) => {
+const useSelectActivities = ({ index, actNos }: useSelectActivitiesProps) => {
+  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
+
   const handleStopPropagation = (e: React.MouseEvent): void => {
     e.stopPropagation();
   };

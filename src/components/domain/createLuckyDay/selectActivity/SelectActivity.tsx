@@ -12,7 +12,7 @@ interface SelectActivityProps {
 }
 
 function SelectActivity({ data }: SelectActivityProps) {
-  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
+  const { watch } = useFormContext<CreateLuckyDayForm>();
 
   const actNos = data?.resData.flatMap((activity) =>
     activity.actList.map(({ actNo }) => actNo)
@@ -22,8 +22,6 @@ function SelectActivity({ data }: SelectActivityProps) {
   const { toggle, handleToggle, handleCheckAllBoxes } = useSelectActivity({
     serverActivities: data?.resData,
     currentActsUnChecked,
-    setValue,
-    watch,
   });
 
   return (

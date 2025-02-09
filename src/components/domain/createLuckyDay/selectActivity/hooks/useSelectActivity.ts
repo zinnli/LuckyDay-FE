@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { UseFormSetValue, UseFormWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import type {
   Activities,
@@ -10,17 +10,15 @@ import type {
 interface useSelectActivityProps {
   serverActivities?: ActivitiesServerModel["resData"];
   currentActsUnChecked: CreateLuckyDayForm["acts"];
-  setValue: UseFormSetValue<CreateLuckyDayForm>;
-  watch: UseFormWatch<CreateLuckyDayForm>;
 }
 
 const useSelectActivity = ({
   serverActivities,
   currentActsUnChecked,
-  setValue,
-  watch,
 }: useSelectActivityProps) => {
   const [toggle, setToggle] = useState<string | null>(null);
+
+  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
 
   const handleToggle = (toggleLabel: string | null): void =>
     setToggle(toggleLabel);
