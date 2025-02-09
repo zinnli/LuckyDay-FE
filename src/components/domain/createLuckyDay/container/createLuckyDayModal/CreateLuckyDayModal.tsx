@@ -31,22 +31,22 @@ function CreateLuckyDayModal({
     .format("YYYY년 MM월 DD일");
 
   const handleClick = handleSubmit((data) => {
-    const filteredActList = data.acts
-      .flatMap((item) => item.actList)
+    const filteredActs = data.acts
+      .flatMap((item) => item.selectedActs)
       .filter((item): item is number => item !== undefined);
 
-    const addCustomActList = Array.from(
-      { length: data.customActList?.length ?? 0 },
+    const addCustomActs = Array.from(
+      { length: data.customActs?.length ?? 0 },
       () => 0
     );
 
     const req = {
       body: {
-        actList: [...filteredActList, ...addCustomActList],
-        customActList: data.customActList,
+        actList: [...filteredActs, ...addCustomActs],
+        customActList: data.customActs,
         period: data.period,
         cnt: data.cnt,
-        expDTList: data.expDTList,
+        expDTList: data.expDate,
       },
     };
 
@@ -64,7 +64,7 @@ function CreateLuckyDayModal({
     });
   });
 
-  const expDatesFormatted = watch("expDTList")
+  const expDatesFormatted = watch("expDate")
     ?.map((item) => `${formatDate(item, "YYYY-MM-DD")}\n`)
     .join("")
     .replace(/,/g, "");

@@ -8,18 +8,14 @@ import type {
 } from "types";
 
 interface useSelectActivityProps {
-  dataRes?: ActivitiesServerModel["resData"];
-  currentActsUnChecked: {
-    category: string;
-    actList?: number[];
-    checked: boolean;
-  }[];
+  serverActivities?: ActivitiesServerModel["resData"];
+  currentActsUnChecked: CreateLuckyDayForm["acts"];
   setValue: UseFormSetValue<CreateLuckyDayForm>;
   watch: UseFormWatch<CreateLuckyDayForm>;
 }
 
 const useSelectActivity = ({
-  dataRes,
+  serverActivities,
   currentActsUnChecked,
   setValue,
   watch,
@@ -43,8 +39,10 @@ const useSelectActivity = ({
   };
 
   const handleCheckAllBoxes = (): void => {
-    const arr = changeIndex(dataRes, 2, 3);
-    const actListArr = watch("acts").flatMap((item) => item.actList);
+    const arr = changeIndex(serverActivities, 2, 3);
+    const actListArr = watch("acts").flatMap(
+      ({ selectedActs }) => selectedActs
+    );
 
     const acts = arr
       .map((activity) => ({

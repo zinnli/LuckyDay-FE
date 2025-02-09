@@ -24,17 +24,17 @@ const useSelectActivities = ({
     (e: React.MouseEvent): void => {
       handleStopPropagation(e);
 
-      const selectActList = watch(`acts.${index}.actList`);
+      const selectActList = watch(`acts.${index}.selectedActs`);
 
       const updatedSelectedItems = selectActList?.includes(actNo)
         ? selectActList?.filter((item) => item !== actNo)
         : [...(selectActList ?? []), actNo];
 
-      setValue(`acts.${index}.actList`, [
+      setValue(`acts.${index}.selectedActs`, [
         ...(selectActList ?? []),
         ...(actNos ?? []),
       ]);
-      setValue(`acts.${index}.actList`, updatedSelectedItems);
+      setValue(`acts.${index}.selectedActs`, updatedSelectedItems);
 
       if (actNos?.length ?? 0 > (selectActList ?? [])?.length) {
         setValue(`acts.${index}.checked`, false);

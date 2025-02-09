@@ -20,7 +20,7 @@ function SelectActivity({ data }: SelectActivityProps) {
   const currentActsUnChecked = watch("acts")?.filter(({ checked }) => !checked);
 
   const { toggle, handleToggle, handleCheckAllBoxes } = useSelectActivity({
-    dataRes: data?.resData,
+    serverActivities: data?.resData,
     currentActsUnChecked,
     setValue,
     watch,

@@ -42,12 +42,12 @@ const useToggle = ({
 
       if (!currentCheckedValue) {
         setValue(`acts.${index}.checked`, false);
-        setValue(`acts.${index}.actList`, []);
+        setValue(`acts.${index}.selectedActs`, []);
       }
       if (currentCheckedValue) {
         setValue(`acts.${index}.checked`, true);
-        setValue(`acts.${index}.actList`, [
-          ...(watch(`acts.${index}.actList`) ?? []),
+        setValue(`acts.${index}.selectedActs`, [
+          ...(watch(`acts.${index}.selectedActs`) ?? []),
           ...(actNos ?? []),
         ]);
       }

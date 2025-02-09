@@ -14,13 +14,13 @@ export interface ActivitiesServerModel {
 }
 
 export interface CreateLuckyDayForm {
-  customActList?: string[];
+  customActs?: string[];
   period: number;
   cnt: number;
-  expDTList?: string[];
+  expDate?: string[];
   acts: {
     category: string;
-    actList?: number[];
+    selectedActs?: number[];
     checked: boolean;
   }[];
 }

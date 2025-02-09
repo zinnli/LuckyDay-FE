@@ -123,9 +123,9 @@ function ActivityToggle({
             {isOpen &&
               (data ? (
                 data.actList?.map(({ actNo, keyword }) => {
-                  const isSelected = watch(`acts.${index}.actList`)?.includes(
-                    actNo
-                  );
+                  const isSelected = watch(
+                    `acts.${index}.selectedActs`
+                  )?.includes(actNo);
 
                   return (
                     <S.Activity
@@ -144,7 +144,7 @@ function ActivityToggle({
                   <S.customActiviyItem ref={spanRef}>
                     {text}
                   </S.customActiviyItem>
-                  {(watch("customActList")?.length || 0) < 5 && (
+                  {(watch("customActs")?.length || 0) < 5 && (
                     <S.CustomActivity
                       ref={activityRef}
                       key={activities[5].label}
@@ -159,7 +159,7 @@ function ActivityToggle({
                       />
                     </S.CustomActivity>
                   )}
-                  {watch("customActList")?.map((item, i) => {
+                  {watch("customActs")?.map((item, i) => {
                     return (
                       <S.CustomActivity
                         ref={activityRef}
