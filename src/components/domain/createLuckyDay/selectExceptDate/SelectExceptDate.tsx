@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
-import type { UseFormSetValue, UseFormWatch } from "react-hook-form";
 
 import { Calendar } from "components";
 import { LUCKYDAY_PERIODS } from "assets";
 import type { CreateLuckyDayForm } from "types";
 import * as S from "./SelectExceptDate.styled";
 
-interface SelectExceptDateProps {
-  watch: UseFormWatch<CreateLuckyDayForm>;
-  setValue: UseFormSetValue<CreateLuckyDayForm>;
-}
-
-function SelectExceptDate({ watch, setValue }: SelectExceptDateProps) {
+function SelectExceptDate() {
   const [expDates, setExpDates] = useState<string[]>([]);
+
+  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
 
   const selectedPeriod = `${watch("period") || "0"}`;
   const availableExpDates = LUCKYDAY_PERIODS.find(

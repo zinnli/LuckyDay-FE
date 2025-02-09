@@ -10,13 +10,11 @@ import type { CreateLuckyDayForm } from "types";
 import * as S from "./CreateLuckyDayModal.styled";
 
 interface CreateLuckyDayModalProps {
-  className?: string;
   watch: UseFormWatch<CreateLuckyDayForm>;
   handleSubmit: UseFormHandleSubmit<CreateLuckyDayForm>;
 }
 
 function CreateLuckyDayModal({
-  className,
   watch,
   handleSubmit,
 }: CreateLuckyDayModalProps) {
@@ -87,7 +85,6 @@ function CreateLuckyDayModal({
 
   return (
     <ConfirmModal
-      className={className}
       css={S.modal(!!expDatesFormatted?.length)}
       title="럭키 데이를 생성하시겠어요?"
       subTitle={subTitle}

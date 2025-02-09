@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import type { UseFormSetValue, UseFormWatch } from "react-hook-form";
+import React, { Fragment, useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 import { activities, CheckIcon } from "assets";
 import type {
@@ -12,18 +12,12 @@ import * as S from "./SelectActivity.styled";
 
 interface SelectActivityProps {
   data?: ActivitiesServerModel;
-  setValue: UseFormSetValue<CreateLuckyDayForm>;
-  watch: UseFormWatch<CreateLuckyDayForm>;
-  getSelectItems: (value: number[]) => void;
 }
 
-function SelectActivity({
-  data,
-  getSelectItems,
-  watch,
-  setValue,
-}: SelectActivityProps) {
+function SelectActivity({ data }: SelectActivityProps) {
   const [toggle, setToggle] = useState<string | null>(null);
+
+  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
 
   const actNos = data?.resData.flatMap((activity) =>
     activity.actList.map((item) => item.actNo)
@@ -94,11 +88,9 @@ function SelectActivity({
           if (!actNos) return null;
 
           return (
-            <>
+            <Fragment key={activity.label}>
               <ActivityToggle
-                key={activity.label}
                 activity={activity}
-                getSelectItems={getSelectItems}
                 setValue={setValue}
                 watch={watch}
                 data={data?.resData?.find(
@@ -118,7 +110,7 @@ function SelectActivity({
                   직접 입력 활동은 최대 <strong>5개</strong>까지 추가 가능해요.
                 </S.CustomInfoText>
               )}
-            </>
+            </Fragment>
           );
         })}
       </S.Activities>

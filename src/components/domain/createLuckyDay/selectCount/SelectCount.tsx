@@ -1,18 +1,15 @@
 import dayjs from "dayjs";
-import type { UseFormSetValue, UseFormWatch } from "react-hook-form";
 
 import { SvgFrame } from "components";
 import { useToast } from "hooks";
 import { CircleBoxIcon, LUCKYDAY_PERIODS, MinusIcon, PlusIcon } from "assets";
 import type { CreateLuckyDayForm } from "types";
 import * as S from "./SelectCount.styled";
+import { useFormContext } from "react-hook-form";
 
-interface SelectCountProps {
-  watch: UseFormWatch<CreateLuckyDayForm>;
-  setValue: UseFormSetValue<CreateLuckyDayForm>;
-}
+function SelectCount() {
+  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
 
-function SelectCount({ watch, setValue }: SelectCountProps) {
   const { addToast } = useToast();
 
   const selectedPeriod = LUCKYDAY_PERIODS.find(

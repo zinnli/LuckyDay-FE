@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 
 import {
   SelectActivity,
@@ -21,11 +21,10 @@ function CreateLuckyDayPage() {
   const navigate = useNavigate();
 
   const [currentProgress, setCurrentProgress] = useState(0);
-  const [, setSelectedItems] = useState<number[]>([]);
 
   const { data } = useGetLuckyDaysActivities();
 
-  const { setValue, watch, handleSubmit } = useForm<CreateLuckyDayForm>({
+  const formMethod = useForm<CreateLuckyDayForm>({
     defaultValues: {
       customActList: [],
       period: 0,
@@ -50,58 +49,51 @@ function CreateLuckyDayPage() {
     setCurrentProgress(changedProgress);
   };
 
-  const getSelectItems = (value: number[]): void => {
-    setSelectedItems(value);
-  };
-
   const changePage = (current: number): React.ReactNode => {
     switch (current) {
       case 0:
-        return (
-          <SelectActivity
-            data={data}
-            getSelectItems={getSelectItems}
-            setValue={setValue}
-            watch={watch}
-          />
-        );
+        return <SelectActivity data={data} />;
       case 1:
-        return <SelectPeriod setValue={setValue} watch={watch} />;
+        return <SelectPeriod />;
       case 2:
-        return <SelectCount setValue={setValue} watch={watch} />;
+        return <SelectCount />;
       case 3:
-        return <SelectExceptDate setValue={setValue} watch={watch} />;
+        return <SelectExceptDate />;
     }
   };
 
   const handleClickNextButton = () => {
-    const emptyActList = watch("acts")
+    const emptyActList = formMethod
+      .watch("acts")
       .filter(({ actList }) => !!actList)
       .flatMap((item) => item.actList);
 
     if (
       currentProgress === 0 &&
       !emptyActList?.length &&
-      !watch("customActList")?.length
+      !formMethod.watch("customActList")?.length
     ) {
       return addToast({ content: "최소 1개의 카테고리를 선택해 주세요." });
     }
 
-    if (currentProgress === 1 && watch("period") === 0) {
+    if (currentProgress === 1 && formMethod.watch("period") === 0) {
       return addToast({ content: "최소 1개의 기간을 선택해 주세요." });
     }
 
     if (currentProgress !== 3) return changeCurrentProgress(+1)();
 
     handleOpenModal(
-      <CreateLuckyDayModal watch={watch} handleSubmit={handleSubmit} />
+      <CreateLuckyDayModal
+        watch={formMethod.watch}
+        handleSubmit={formMethod.handleSubmit}
+      />
     );
   };
 
   useEffect(() => {
     if (!data) return;
 
-    setValue(
+    formMethod.setValue(
       "acts",
       data.resData
         .map((item) => ({
@@ -132,8 +124,10 @@ function CreateLuckyDayPage() {
       handleClickSecondButton={handleClickNextButton}
     >
       <S.CreateLuckyDay>
-        <ProgressBar progressState={currentProgress} />
-        {changePage(currentProgress)}
+        <FormProvider {...formMethod}>
+          <ProgressBar progressState={currentProgress} />
+          {changePage(currentProgress)}
+        </FormProvider>
       </S.CreateLuckyDay>
     </ButtonLayout>
   );

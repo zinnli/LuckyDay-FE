@@ -20,7 +20,6 @@ interface ActivityToggleProps {
   setValue: UseFormSetValue<CreateLuckyDayForm>;
   watch: UseFormWatch<CreateLuckyDayForm>;
   handleToggle: (toggle: string | null) => void;
-  getSelectItems: (items: number[]) => void;
 }
 
 function ActivityToggle({
@@ -33,7 +32,6 @@ function ActivityToggle({
   setValue,
   watch,
   handleToggle,
-  getSelectItems,
 }: ActivityToggleProps) {
   const ref = useRef<HTMLDivElement>(null);
   const activityRef = useRef<HTMLButtonElement>(null);
@@ -100,7 +98,6 @@ function ActivityToggle({
         ...(actNos ?? []),
       ]);
       setValue(`acts.${index}.actList`, updatedSelectedItems);
-      getSelectItems(updatedSelectedItems ?? []);
 
       if (
         actNos?.length ??
@@ -157,6 +154,7 @@ function ActivityToggle({
                   type="checkbox"
                   checked={checked}
                   id={`check${index}`}
+                  value=""
                   onChange={handleClickCheckbox(index)}
                 />
                 <label htmlFor={`check${index}`} />

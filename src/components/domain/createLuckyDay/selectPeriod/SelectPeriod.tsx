@@ -1,22 +1,14 @@
 import dayjs from "dayjs";
-import type { UseFormSetValue, UseFormWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import { SvgFrame } from "components";
 import { LUCKYDAY_PERIODS, LongBoxIcon } from "assets";
 import type { CreateLuckyDayForm } from "types";
 import * as S from "./SelectPeriod.styled";
 
-interface SelectPeriodProps {
-  isLastSubStep?: boolean;
-  watch: UseFormWatch<CreateLuckyDayForm>;
-  setValue: UseFormSetValue<CreateLuckyDayForm>;
-}
+function SelectPeriod() {
+  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
 
-function SelectPeriod({
-  isLastSubStep = false,
-  watch,
-  setValue,
-}: SelectPeriodProps) {
   const selectPeriod = LUCKYDAY_PERIODS.find(
     (item) => item.period === watch("period")
   );
@@ -48,10 +40,7 @@ function SelectPeriod({
             onClick={handleSelectPeriod(period.label)}
           >
             <SvgFrame
-              css={S.icon(
-                watch("period") === period.period ||
-                  (isLastSubStep && period.period === 30)
-              )}
+              css={S.icon(watch("period") === period.period)}
               icon={<LongBoxIcon />}
             />
             <S.ActivityInfo>
