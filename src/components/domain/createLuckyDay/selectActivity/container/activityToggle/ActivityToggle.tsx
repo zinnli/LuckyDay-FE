@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import type { UseFormSetValue, UseFormWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import { Input } from "components";
 import { ArrowIcon, CheckIcon, CloseIcon, activities } from "assets";
 import type { Activities, CreateLuckyDayForm } from "types";
-import { useCustomInput } from "./hooks";
+import { useCustomInput, useSelectActivities, useToggle } from "./hooks";
 import * as S from "./ActivityToggle.styled";
 
 interface ActivityToggleProps {
@@ -17,8 +17,6 @@ interface ActivityToggleProps {
   isOpen: boolean;
   toggle: string | null;
   checked: boolean;
-  setValue: UseFormSetValue<CreateLuckyDayForm>;
-  watch: UseFormWatch<CreateLuckyDayForm>;
   handleToggle: (toggle: string | null) => void;
 }
 
@@ -29,92 +27,51 @@ function ActivityToggle({
   checked,
   isOpen,
   toggle,
-  setValue,
-  watch,
   handleToggle,
 }: ActivityToggleProps) {
   const ref = useRef<HTMLDivElement>(null);
   const activityRef = useRef<HTMLButtonElement>(null);
 
+  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
+
+  const actNos = data?.actList.map((item) => item.actNo);
+
   const {
     spanRef,
     inputWidth,
     text,
-    setText,
+    handleEnterText,
     handleCustomItemChange,
     handleEnterCustomItemChange,
     DeleteCustomActivity,
     handleAddCustomActivity,
   } = useCustomInput({ setValue, watch });
 
-  const actNos = data?.actList.map((item) => item.actNo);
+  const { handleStopPropagation, handleItemClick } = useSelectActivities({
+    watch,
+    setValue,
+    index,
+    actNos,
+  });
 
-  const handleToggleClick = (): void => {
-    if (text) {
-      setText("");
-    }
-
-    if (activity.label === toggle) {
-      return handleToggle(null);
-    }
-
-    handleToggle(activity.label);
-  };
-
-  const handleStopPropagation = (e: React.MouseEvent): void => {
-    e.stopPropagation();
-  };
-
-  const handleClickCheckbox =
-    (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const currentCheckedValue = e.target?.checked;
-
-      if (!currentCheckedValue) {
-        setValue(`acts.${index}.checked`, false);
-        setValue(`acts.${index}.actList`, []);
-      }
-      if (currentCheckedValue) {
-        setValue(`acts.${index}.checked`, true);
-        setValue(`acts.${index}.actList`, [
-          ...(watch(`acts.${index}.actList`) ?? []),
-          ...(actNos ?? []),
-        ]);
-      }
-    };
-
-  const handleItemClick =
-    (actNo: number) =>
-    (e: React.MouseEvent): void => {
-      handleStopPropagation(e);
-
-      const updatedSelectedItems = watch(`acts.${index}.actList`)?.includes(
-        actNo
-      )
-        ? watch(`acts.${index}.actList`)?.filter((item) => item !== actNo)
-        : [...(watch(`acts.${index}.actList`) ?? []), actNo];
-
-      setValue(`acts.${index}.actList`, [
-        ...(watch(`acts.${index}.actList`) ?? []),
-        ...(actNos ?? []),
-      ]);
-      setValue(`acts.${index}.actList`, updatedSelectedItems);
-
-      if (
-        actNos?.length ??
-        0 > (watch(`acts.${index}`).actList ?? [])?.length
-      ) {
-        setValue(`acts.${index}.checked`, false);
-      }
-    };
+  const { handleToggleClick, handleClickCheckbox } = useToggle({
+    activityLabel: activity.label,
+    toggle,
+    text,
+    setValue,
+    watch,
+    handleToggle,
+    handleEnterText,
+    actNos,
+  });
 
   useEffect(() => {
     const handleFocus = (e: MouseEvent): void => {
       if (
         ref.current?.contains(e.target as HTMLElement) ||
         toggle !== activity.label
-      ) {
+      )
         return;
-      }
       handleToggle(null);
     };
 
@@ -165,20 +122,20 @@ function ActivityToggle({
           <S.Activities>
             {isOpen &&
               (data ? (
-                data.actList?.map((item) => {
+                data.actList?.map(({ actNo, keyword }) => {
                   const isSelected = watch(`acts.${index}.actList`)?.includes(
-                    item.actNo
+                    actNo
                   );
 
                   return (
                     <S.Activity
                       isSelected={isSelected}
                       ref={activityRef}
-                      key={item.actNo}
-                      onClick={handleItemClick(item.actNo)}
+                      key={actNo}
+                      onClick={handleItemClick(actNo)}
                     >
                       <CheckIcon css={S.icon} />
-                      {item.keyword}
+                      {keyword}
                     </S.Activity>
                   );
                 })

@@ -57,11 +57,15 @@ const useCustomInput = ({ setValue, watch }: useCustomInputProps) => {
     setValue("customActList", filteredActivities);
   };
 
+  const handleEnterText = (text: string): void => {
+    setText(text);
+  };
+
   return {
     spanRef,
     inputWidth,
     text,
-    setText,
+    handleEnterText,
     handleCustomItemChange,
     handleEnterCustomItemChange,
     handleAddCustomActivity,

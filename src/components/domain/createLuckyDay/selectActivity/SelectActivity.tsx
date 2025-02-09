@@ -20,9 +20,8 @@ function SelectActivity({ data }: SelectActivityProps) {
   const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
 
   const actNos = data?.resData.flatMap((activity) =>
-    activity.actList.map((item) => item.actNo)
+    activity.actList.map(({ actNo }) => actNo)
   );
-
   const currentActsUnChecked = watch("acts")?.filter(({ checked }) => !checked);
 
   const handleToggle = (toggleLabel: string | null): void =>
@@ -32,7 +31,7 @@ function SelectActivity({ data }: SelectActivityProps) {
     arr: Activities[] | undefined,
     idx1: number,
     idx2: number
-  ) => {
+  ): Activities[] => {
     if (!arr) return [];
 
     const newArr = [...arr];
@@ -41,21 +40,19 @@ function SelectActivity({ data }: SelectActivityProps) {
     return newArr;
   };
 
-  const arr = changeIndex(data?.resData, 2, 3);
+  const handleCheckAllBoxes = (): void => {
+    const arr = changeIndex(data?.resData, 2, 3);
+    const actListArr = watch("acts").flatMap((item) => item.actList);
 
-  const handleCheckAllBoxes = () => {
     const acts = arr
-      .map((activity) => {
-        return {
-          category: activity.category ?? "",
-          actList:
-            activity.actList.length > 0 &&
-            watch("acts").flatMap((item) => item.actList).length === 0
-              ? activity.actList.map((act) => act.actNo)
-              : [],
-          checked: currentActsUnChecked?.length === 5 ? true : false,
-        };
-      })
+      .map((activity) => ({
+        category: activity.category ?? "",
+        actList:
+          activity.actList.length > 0 && actListArr.length === 0
+            ? activity.actList.map(({ actNo }) => actNo)
+            : [],
+        checked: currentActsUnChecked?.length === 5,
+      }))
       .filter(({ category }) => category !== "직접 입력");
 
     if (!acts) return;
@@ -87,25 +84,26 @@ function SelectActivity({ data }: SelectActivityProps) {
         {activities.map((activity, i) => {
           if (!actNos) return null;
 
+          const checked = watch(`acts.${i}.checked`);
+          const selectedActivity = data?.resData?.find(
+            (item) => item.category === activity.label
+          );
+          const isOpen =
+            toggle === activity.label ||
+            (activity.label === toggle && toggle === activities[5].label);
+
           return (
             <Fragment key={activity.label}>
               <ActivityToggle
                 activity={activity}
-                setValue={setValue}
-                watch={watch}
-                data={data?.resData?.find(
-                  (item) => item.category === activity.label
-                )}
-                checked={watch(`acts.${i}.checked`)}
+                data={selectedActivity}
+                checked={checked}
                 index={i}
                 toggle={toggle}
-                isOpen={
-                  toggle === activity.label ||
-                  (activity.label === toggle && toggle === "+) 직접 입력")
-                }
+                isOpen={isOpen}
                 handleToggle={handleToggle}
               />
-              {toggle === "+) 직접 입력" && i === 5 && (
+              {toggle === activities[5].label && i === 5 && (
                 <S.CustomInfoText>
                   직접 입력 활동은 최대 <strong>5개</strong>까지 추가 가능해요.
                 </S.CustomInfoText>
