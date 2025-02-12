@@ -20,7 +20,7 @@ function SelectPeriod() {
 
     if (+period !== watch("period")) {
       setValue("cnt", 1);
-      setValue("expDTList", []);
+      setValue("expDate", []);
     }
   };
 

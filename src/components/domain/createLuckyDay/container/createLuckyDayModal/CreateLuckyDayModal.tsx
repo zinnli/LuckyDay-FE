@@ -46,7 +46,7 @@ function CreateLuckyDayModal({
         customActList: data.customActs,
         period: data.period,
         cnt: data.cnt,
-        expDTList: data.expDate,
+        expDate: data.expDate,
       },
     };
 

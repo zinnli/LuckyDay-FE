@@ -40,7 +40,7 @@ function SelectExceptDate() {
   };
 
   useEffect(() => {
-    setValue("expDTList", sortDates);
+    setValue("expDate", sortDates);
   }, [expDates]);
 
   return (

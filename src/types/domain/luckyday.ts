@@ -30,7 +30,7 @@ export interface CreateLuckyDayQuery {
   customActList?: string[];
   period: number;
   cnt: number;
-  expDTList?: string[];
+  expDate?: string[];
 }
 
 export interface CreateLuckyDayQueryModel {
