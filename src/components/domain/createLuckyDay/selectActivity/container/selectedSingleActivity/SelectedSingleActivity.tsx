@@ -4,10 +4,14 @@ import { useFormContext } from "react-hook-form";
 import { Input } from "components";
 import { ArrowIcon, CheckIcon, CloseIcon, activities } from "assets";
 import type { Activities, CreateLuckyDayForm } from "types";
-import { useCustomInput, useSelectActivities, useToggle } from "./hooks";
-import * as S from "./ActivityToggle.styled";
+import {
+  useCustomInput,
+  useSelectActivities,
+  useActivityToggle,
+} from "./hooks";
+import * as S from "./SelectedSingleActivity.styled";
 
-interface ActivityToggleProps {
+interface SelectedSingleActivityProps {
   activity: {
     icon: React.ReactNode;
     label: (typeof activities)[number]["label"];
@@ -20,7 +24,7 @@ interface ActivityToggleProps {
   handleToggle: (toggle: string | null) => void;
 }
 
-function ActivityToggle({
+function SelectedSingleActivity({
   activity,
   data,
   index,
@@ -28,7 +32,7 @@ function ActivityToggle({
   isOpen,
   toggle,
   handleToggle,
-}: ActivityToggleProps) {
+}: SelectedSingleActivityProps) {
   const ref = useRef<HTMLDivElement>(null);
   const activityRef = useRef<HTMLButtonElement>(null);
 
@@ -52,7 +56,7 @@ function ActivityToggle({
     actNos,
   });
 
-  const { handleToggleClick, handleClickCheckbox } = useToggle({
+  const { handleToggleClick, handleClickCheckbox } = useActivityToggle({
     activityLabel: activity.label,
     toggle,
     text,
@@ -184,4 +188,4 @@ function ActivityToggle({
   );
 }
 
-export default ActivityToggle;
+export default SelectedSingleActivity;

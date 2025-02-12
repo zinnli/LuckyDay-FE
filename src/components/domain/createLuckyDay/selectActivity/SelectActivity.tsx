@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 
 import { activities, CheckIcon } from "assets";
 import type { ActivitiesServerModel, CreateLuckyDayForm } from "types";
-import { ActivityToggle } from "./container";
+import { SelectedSingleActivity } from "./container";
 import { useSelectActivity } from "./hooks";
 import * as S from "./SelectActivity.styled";
 
@@ -58,7 +58,7 @@ function SelectActivity({ data }: SelectActivityProps) {
 
           return (
             <Fragment key={activity.label}>
-              <ActivityToggle
+              <SelectedSingleActivity
                 activity={activity}
                 data={selectedActivity}
                 checked={checked}

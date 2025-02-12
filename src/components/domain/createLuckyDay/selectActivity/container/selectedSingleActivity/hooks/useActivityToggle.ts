@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form";
 
 import type { CreateLuckyDayForm } from "types";
 
-interface useToogleProps {
+interface useActivityToggleProps {
   activityLabel: string;
   toggle: string | null;
   text: string | null;
@@ -11,14 +11,14 @@ interface useToogleProps {
   actNos?: number[];
 }
 
-const useToggle = ({
+const useActivityToggle = ({
   activityLabel,
   toggle,
   text,
   actNos,
   handleToggle,
   handleEnterText,
-}: useToogleProps) => {
+}: useActivityToggleProps) => {
   const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
 
   const handleToggleClick = (): void => {
@@ -54,4 +54,4 @@ const useToggle = ({
   return { handleToggleClick, handleClickCheckbox };
 };
 
-export default useToggle;
+export default useActivityToggle;

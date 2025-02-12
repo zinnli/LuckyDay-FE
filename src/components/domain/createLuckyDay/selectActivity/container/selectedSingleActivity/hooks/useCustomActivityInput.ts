@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { useToast } from "hooks";
 import type { CreateLuckyDayForm } from "types";
 
-const useCustomInput = () => {
+const useCustomActivityInput = () => {
   const [text, setText] = useState("");
 
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -70,4 +70,4 @@ const useCustomInput = () => {
   };
 };
 
-export default useCustomInput;
+export default useCustomActivityInput;
