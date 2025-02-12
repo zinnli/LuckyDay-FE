@@ -2,7 +2,11 @@ import { css, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 import * as S from "pages/luckyBoard/luckyBoardBefore/LuckyBoardBeforePage.styled";
 
-export const Container = styled(S.Container)``;
+export const Container = styled(S.Container)`
+  position: absolute;
+  top: 70px;
+  height: calc(100% - 70px);
+`;
 
 export const ButtonWrapper = styled.div`
   position: relative;
@@ -28,12 +32,12 @@ export const ButtonBox = styled.div`
 
 export const Button = styled.button`
   position: absolute;
-  bottom: 7%;
+  bottom: 3.3%;
   right: 5%;
   width: 90px;
 
   @media (max-width: 380px) {
-    bottom: 6%;
+    bottom: 2.9%;
   }
 `;
 

@@ -2,7 +2,11 @@ import { css, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 import * as S from "pages/luckyBoard/luckyBoardBefore/LuckyBoardBeforePage.styled";
 
-export const Container = styled(S.Container)``;
+export const Container = styled(S.Container)`
+  position: absolute;
+  top: 70px;
+  height: calc(100% - 70px);
+`;
 
 const button = (theme: Theme) => css`
   position: relative;
