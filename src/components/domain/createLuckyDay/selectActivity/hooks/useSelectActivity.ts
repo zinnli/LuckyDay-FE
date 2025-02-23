@@ -36,18 +36,15 @@ const useSelectActivity = ({
     return newArr;
   };
 
-  const handleCheckAllBoxes = (): void => {
-    const arr = changeIndex(serverActivities, 2, 3);
-    const actListArr = watch("acts").flatMap(
-      ({ selectedActs }) => selectedActs
-    );
+  const arr = changeIndex(serverActivities, 2, 3);
 
+  const handleCheckAllBoxes = (): void => {
     const acts = arr
       .map((activity) => ({
         category: activity.category ?? "",
-        actList:
-          activity.actList.length > 0 && actListArr.length === 0
-            ? activity.actList.map(({ actNo }) => actNo)
+        selectedActs:
+          watch("acts").flatMap((item) => item.selectedActs).length === 0
+            ? activity.actList.map((act) => act.actNo)
             : [],
         checked: currentActsUnChecked?.length === 5,
       }))
