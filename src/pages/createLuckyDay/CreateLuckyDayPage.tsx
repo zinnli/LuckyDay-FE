@@ -98,7 +98,7 @@ function CreateLuckyDayPage() {
       data.resData
         .map((item) => ({
           category: item.category,
-          actList: [],
+          selectedActs: [],
           checked: false,
         }))
         .filter(({ category }) => category !== "직접 입력")
