@@ -32,7 +32,7 @@ const PROGRESS_STATE = {
   EXP_DATE: 3,
 };
 
-function CreateLuckyDayPage() {
+export default function CreateLuckyDayPage() {
   const navigate = useNavigate();
 
   const [currentProgress, setCurrentProgress] = useState(0);
@@ -127,5 +127,3 @@ function CreateLuckyDayPage() {
     </ButtonLayout>
   );
 }
-
-export default CreateLuckyDayPage;
