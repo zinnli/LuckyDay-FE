@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 import { SvgFrame } from "components";
 import { LUCKYDAY_PERIODS, LongBoxIcon } from "assets";
@@ -7,20 +7,16 @@ import type { CreateLuckyDayForm } from "types";
 import * as S from "./SelectPeriod.styled";
 
 function SelectPeriod() {
-  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
+  const { watch, control, resetField } = useFormContext<CreateLuckyDayForm>();
 
   const selectPeriod = LUCKYDAY_PERIODS.find(
     (item) => item.period === watch("period")
   );
 
-  const handleSelectPeriod = (period: string) => (): void => {
-    const selectPeriod = LUCKYDAY_PERIODS.find((item) => item.label === period);
-
-    setValue("period", selectPeriod?.period ?? 0);
-
+  const handleSelectPeriod = (period: string): void => {
     if (+period !== watch("period")) {
-      setValue("cnt", 1);
-      setValue("expDate", []);
+      resetField("cnt");
+      resetField("expDate");
     }
   };
 
@@ -34,19 +30,36 @@ function SelectPeriod() {
       </S.HeadLine>
       <S.PeriodWrapper>
         {LUCKYDAY_PERIODS.map((period) => (
-          <S.ActivityButton
-            className={period.period === 30 ? "period" : ""}
+          <Controller
             key={period.label}
-            onClick={handleSelectPeriod(period.label)}
-          >
-            <SvgFrame
-              css={S.icon(watch("period") === period.period)}
-              icon={<LongBoxIcon />}
-            />
-            <S.ActivityInfo>
-              <S.ActivityTitle>{period.label}</S.ActivityTitle>
-            </S.ActivityInfo>
-          </S.ActivityButton>
+            control={control}
+            name="period"
+            render={({ field: { onChange } }) => {
+              const handleChange = (period: string) => (): void => {
+                const selectPeriod = LUCKYDAY_PERIODS.find(
+                  (item) => item.label === period
+                );
+
+                if (!selectPeriod?.period) return;
+
+                handleSelectPeriod(period);
+
+                onChange(selectPeriod?.period);
+              };
+
+              return (
+                <S.ActivityButton onClick={handleChange(period.label)}>
+                  <SvgFrame
+                    css={S.icon(watch("period") === period.period)}
+                    icon={<LongBoxIcon />}
+                  />
+                  <S.ActivityInfo>
+                    <S.ActivityTitle>{period.label}</S.ActivityTitle>
+                  </S.ActivityInfo>
+                </S.ActivityButton>
+              );
+            }}
+          />
         ))}
       </S.PeriodWrapper>
       {!!watch("period") && (
