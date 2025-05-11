@@ -17,6 +17,14 @@ import { useGetLuckyDaysActivities } from "services";
 import type { CreateLuckyDayForm } from "types";
 import * as S from "./CreateLuckyDayPage.styled";
 
+const DEFAULT_VALUES = {
+  customActs: [],
+  period: 0,
+  cnt: 1,
+  expDate: [],
+  acts: [],
+};
+
 function CreateLuckyDayPage() {
   const navigate = useNavigate();
 
@@ -24,14 +32,17 @@ function CreateLuckyDayPage() {
 
   const { data } = useGetLuckyDaysActivities();
 
+  const actsData = data?.resData
+    .map((item) => ({
+      category: item.category,
+      selectedActs: [],
+      checked: false,
+    }))
+    .filter(({ category }) => category !== "직접 입력");
+
   const formMethod = useForm<CreateLuckyDayForm>({
-    defaultValues: {
-      customActs: [],
-      period: 0,
-      cnt: 1,
-      expDate: [],
-      acts: [],
-    },
+    defaultValues: DEFAULT_VALUES,
+    values: data ? { ...DEFAULT_VALUES, acts: actsData || [] } : DEFAULT_VALUES,
     mode: "onTouched",
   });
 
@@ -89,21 +100,6 @@ function CreateLuckyDayPage() {
       />
     );
   };
-
-  useEffect(() => {
-    if (!data) return;
-
-    formMethod.setValue(
-      "acts",
-      data.resData
-        .map((item) => ({
-          category: item.category,
-          selectedActs: [],
-          checked: false,
-        }))
-        .filter(({ category }) => category !== "직접 입력")
-    );
-  }, [data]);
 
   useEffect(() => {
     const hasLuckyday = sessionStorage.getItem("hasLuckyday");
