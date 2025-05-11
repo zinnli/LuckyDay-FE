@@ -25,6 +25,13 @@ const DEFAULT_VALUES = {
   acts: [],
 };
 
+const PROGRESS_STATE = {
+  ACTIVITY: 0,
+  PERIOD: 1,
+  COUNT: 2,
+  EXP_DATE: 3,
+};
+
 function CreateLuckyDayPage() {
   const navigate = useNavigate();
 
@@ -58,19 +65,6 @@ function CreateLuckyDayPage() {
       return addToast({ content: "마지막 페이지 입니다." });
 
     setCurrentProgress(changedProgress);
-  };
-
-  const changePage = (current: number): React.ReactNode => {
-    switch (current) {
-      case 0:
-        return <SelectActivity data={data} />;
-      case 1:
-        return <SelectPeriod />;
-      case 2:
-        return <SelectCount />;
-      case 3:
-        return <SelectExceptDate />;
-    }
   };
 
   const handleClickNextButton = () => {
@@ -122,7 +116,12 @@ function CreateLuckyDayPage() {
       <S.CreateLuckyDay>
         <FormProvider {...formMethod}>
           <ProgressBar progressState={currentProgress} />
-          {changePage(currentProgress)}
+          {PROGRESS_STATE.ACTIVITY === currentProgress && (
+            <SelectActivity data={data} />
+          )}
+          {PROGRESS_STATE.PERIOD === currentProgress && <SelectPeriod />}
+          {PROGRESS_STATE.COUNT === currentProgress && <SelectCount />}
+          {PROGRESS_STATE.EXP_DATE === currentProgress && <SelectExceptDate />}
         </FormProvider>
       </S.CreateLuckyDay>
     </ButtonLayout>
