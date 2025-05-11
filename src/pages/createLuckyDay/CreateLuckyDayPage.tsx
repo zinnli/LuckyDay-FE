@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 
 import {
   SelectActivity,
@@ -14,16 +14,8 @@ import {
 import { ArrowIcon } from "assets";
 import { useModal, useToast } from "hooks";
 import { useGetLuckyDaysActivities } from "services";
-import type { CreateLuckyDayForm } from "types";
+import { useCreateLuckyDayForm } from "./hooks";
 import * as S from "./CreateLuckyDayPage.styled";
-
-const DEFAULT_VALUES = {
-  customActs: [],
-  period: 0,
-  cnt: 1,
-  expDate: [],
-  acts: [],
-};
 
 const PROGRESS_STATE = {
   ACTIVITY: 0,
@@ -39,20 +31,7 @@ export default function CreateLuckyDayPage() {
 
   const { data } = useGetLuckyDaysActivities();
 
-  const actsData = data?.resData
-    .map((item) => ({
-      category: item.category,
-      selectedActs: [],
-      checked: false,
-    }))
-    .filter(({ category }) => category !== "직접 입력");
-
-  const formMethod = useForm<CreateLuckyDayForm>({
-    defaultValues: DEFAULT_VALUES,
-    values: data ? { ...DEFAULT_VALUES, acts: actsData || [] } : DEFAULT_VALUES,
-    mode: "onTouched",
-  });
-
+  const { formMethod } = useCreateLuckyDayForm({ data });
   const { handleOpenModal } = useModal();
   const { addToast } = useToast();
 
