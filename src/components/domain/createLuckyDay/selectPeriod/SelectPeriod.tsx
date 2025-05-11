@@ -6,7 +6,7 @@ import { LUCKYDAY_PERIODS, LongBoxIcon } from "assets";
 import type { CreateLuckyDayForm } from "types";
 import * as S from "./SelectPeriod.styled";
 
-function SelectPeriod() {
+export default function SelectPeriod() {
   const { watch, control, resetField } = useFormContext<CreateLuckyDayForm>();
 
   const selectPeriod = LUCKYDAY_PERIODS.find(
@@ -71,5 +71,3 @@ function SelectPeriod() {
     </>
   );
 }
-
-export default SelectPeriod;
