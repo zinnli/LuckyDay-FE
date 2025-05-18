@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 
@@ -8,40 +8,38 @@ import type { CreateLuckyDayForm } from "types";
 import * as S from "./SelectExceptDate.styled";
 
 function SelectExceptDate() {
-  const [expDates, setExpDates] = useState<string[]>([]);
-
-  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
+  const { watch, getValues, setValue } = useFormContext<CreateLuckyDayForm>();
 
   const selectedPeriod = `${watch("period") || "0"}`;
   const availableExpDates = LUCKYDAY_PERIODS.find(
     (item) => item.period === +selectedPeriod
   )?.expDate;
 
-  const EndOfDate = dayjs(dayjs())
+  const EndOfDate = dayjs()
     .add(+selectedPeriod, "day")
     .subtract(+1, "day")
     .format("YYYY년 MM월 DD일");
 
-  const sortDates = expDates.sort((a, b) => {
-    const dateA = dayjs(a.replace(/년 |월 /g, "-").replace(/일/, ""));
-    const dateB = dayjs(b.replace(/년 |월 /g, "-").replace(/일/, ""));
+  const sortDates = (expDates: string[]) => {
+    return expDates.sort((a, b) => {
+      const dateA = dayjs(a.replace(/년 |월 /g, "-").replace(/일/, ""));
+      const dateB = dayjs(b.replace(/년 |월 /g, "-").replace(/일/, ""));
 
-    return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-  });
-
-  const makeExpDates = (dates: string) => {
-    if (expDates.includes(dates)) {
-      setExpDates((prevExpDates) =>
-        prevExpDates.filter((date) => date !== dates)
-      );
-    } else {
-      setExpDates([...expDates, dates]);
-    }
+      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    });
   };
 
-  useEffect(() => {
-    setValue("expDate", sortDates);
-  }, [expDates]);
+  const makeExpDates = (dates: string) => {
+    const expDates = getValues("expDate") || [];
+
+    if (expDates.includes(dates)) {
+      const exceptDate = expDates.filter((date) => date !== dates);
+
+      setValue("expDate", sortDates(exceptDate));
+    } else {
+      setValue("expDate", sortDates([...expDates, dates]));
+    }
+  };
 
   return (
     <>
@@ -51,7 +49,7 @@ function SelectExceptDate() {
       </S.SubHeadLine>
       <Calendar
         dates={selectedPeriod}
-        expDates={expDates}
+        expDates={watch("expDate") || []}
         makeExpDates={makeExpDates}
       />
       <S.SelectInfo>
