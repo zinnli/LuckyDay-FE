@@ -1,5 +1,8 @@
+import { useFormContext } from "react-hook-form";
+
 import { SvgFrame } from "components";
 import { ArrowIcon, CircleBoxIcon, LargeBoxIcon, LongBoxIcon } from "assets";
+import type { CreateLuckyDayForm } from "types";
 import useCalendar from "./hooks/useCalendar";
 import * as S from "./Calendar.styled";
 
@@ -10,15 +13,15 @@ interface CalendarProps {
 }
 
 const Calendar = ({ dates, expDates, makeExpDates }: CalendarProps) => {
+  const { watch, getValues } = useFormContext<CreateLuckyDayForm>();
   const {
     currentMonth,
     monthsData,
-    disabled,
     calendarList,
     handleMoveToPrevMonth,
     handleMoveToNextMonth,
     handleDisabledCheck,
-  } = useCalendar(dates, expDates, makeExpDates);
+  } = useCalendar(getValues("period"), dates, expDates, makeExpDates);
 
   const dayWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const;
 
@@ -49,7 +52,7 @@ const Calendar = ({ dates, expDates, makeExpDates }: CalendarProps) => {
               return <div key={i} />;
             } else {
               const formattedDate = date.format("YYYY-MM-DD");
-              const isExceptDate = disabled.includes(formattedDate);
+              const isExceptDate = !!watch("expDate")?.includes(formattedDate);
 
               return (
                 <S.DayButton

@@ -1,14 +1,14 @@
 import dayjs from "dayjs";
+import { Controller, useFormContext } from "react-hook-form";
 
-import { SvgFrame } from "components";
 import { useToast } from "hooks";
-import { CircleBoxIcon, LUCKYDAY_PERIODS, MinusIcon, PlusIcon } from "assets";
+import { LUCKYDAY_PERIODS, MinusIcon, PlusIcon } from "assets";
 import type { CreateLuckyDayForm } from "types";
+import { SelectDatesButton } from "./containers";
 import * as S from "./SelectCount.styled";
-import { useFormContext } from "react-hook-form";
 
 function SelectCount() {
-  const { watch, setValue } = useFormContext<CreateLuckyDayForm>();
+  const { watch, control } = useFormContext<CreateLuckyDayForm>();
 
   const { addToast } = useToast();
 
@@ -16,19 +16,17 @@ function SelectCount() {
     (item) => item.period === watch("period")
   );
 
-  const handleSelectCounts = (count: number) => (): void => {
-    const currentCount = watch("cnt") + count;
+  const handleSelectCounts = (currentCount: number) => (): void => {
+    const selectedPeriodCounts = selectedPeriod?.cnt;
+
+    if (!selectedPeriodCounts) return;
 
     if (currentCount <= 0)
       return addToast({ content: "최소 1개의 럭키 데이를 선택해 주세요." });
-    if (currentCount > (selectedPeriod?.cnt ?? 0))
+    if (currentCount > selectedPeriodCounts)
       return addToast({
-        content: `최대 ${
-          selectedPeriod?.cnt ?? 0
-        }개의 럭키 데이를 선택할 수 있어요.`,
+        content: `최대 ${selectedPeriodCounts}개의 럭키 데이를 선택할 수 있어요.`,
       });
-
-    setValue("cnt", watch("cnt") + count);
   };
 
   return (
@@ -42,15 +40,43 @@ function SelectCount() {
         </S.SubHeadLine>
       </S.HeadLine>
       <S.SelectDatesWrapper>
-        <S.SelectDatesButton onClick={handleSelectCounts(-1)}>
-          <SvgFrame css={S.svgFrame} icon={<CircleBoxIcon />} />
-          <MinusIcon css={S.icon} />
-        </S.SelectDatesButton>
+        <Controller
+          control={control}
+          name="cnt"
+          render={({ field: { onChange, value } }) => {
+            const handleChange = (count: number) => (): void => {
+              const currentCount = value + count;
+
+              handleSelectCounts(currentCount);
+              onChange(value + count);
+            };
+
+            return (
+              <SelectDatesButton
+                Icon={<MinusIcon css={S.icon} />}
+                handleSelectCounts={handleChange(-1)}
+              />
+            );
+          }}
+        />
         <S.SelectDatesBox>{watch("cnt")}</S.SelectDatesBox>
-        <S.SelectDatesButton onClick={handleSelectCounts(+1)}>
-          <SvgFrame css={S.svgFrame} icon={<CircleBoxIcon />} />
-          <PlusIcon css={S.icon} />
-        </S.SelectDatesButton>
+        <Controller
+          control={control}
+          name="cnt"
+          render={({ field: { onChange, value } }) => {
+            const handleChange = (count: number) => () => {
+              handleSelectCounts(count);
+              onChange(value + count);
+            };
+
+            return (
+              <SelectDatesButton
+                Icon={<PlusIcon css={S.icon} />}
+                handleSelectCounts={handleChange(+1)}
+              />
+            );
+          }}
+        />
       </S.SelectDatesWrapper>
       {!!selectedPeriod && (
         <S.SelectInfo>

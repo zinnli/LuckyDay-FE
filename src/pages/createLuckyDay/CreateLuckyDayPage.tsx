@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 
 import {
   SelectActivity,
@@ -14,27 +14,24 @@ import {
 import { ArrowIcon } from "assets";
 import { useModal, useToast } from "hooks";
 import { useGetLuckyDaysActivities } from "services";
-import type { CreateLuckyDayForm } from "types";
+import { useCreateLuckyDayForm } from "./hooks";
 import * as S from "./CreateLuckyDayPage.styled";
 
-function CreateLuckyDayPage() {
+const PROGRESS_STATE = {
+  ACTIVITY: 0,
+  PERIOD: 1,
+  COUNT: 2,
+  EXP_DATE: 3,
+};
+
+export default function CreateLuckyDayPage() {
   const navigate = useNavigate();
 
   const [currentProgress, setCurrentProgress] = useState(0);
 
   const { data } = useGetLuckyDaysActivities();
 
-  const formMethod = useForm<CreateLuckyDayForm>({
-    defaultValues: {
-      customActs: [],
-      period: 0,
-      cnt: 1,
-      expDate: [],
-      acts: [],
-    },
-    mode: "onTouched",
-  });
-
+  const { formMethod } = useCreateLuckyDayForm({ data });
   const { handleOpenModal } = useModal();
   const { addToast } = useToast();
 
@@ -47,19 +44,6 @@ function CreateLuckyDayPage() {
       return addToast({ content: "마지막 페이지 입니다." });
 
     setCurrentProgress(changedProgress);
-  };
-
-  const changePage = (current: number): React.ReactNode => {
-    switch (current) {
-      case 0:
-        return <SelectActivity data={data} />;
-      case 1:
-        return <SelectPeriod />;
-      case 2:
-        return <SelectCount />;
-      case 3:
-        return <SelectExceptDate />;
-    }
   };
 
   const handleClickNextButton = () => {
@@ -91,21 +75,6 @@ function CreateLuckyDayPage() {
   };
 
   useEffect(() => {
-    if (!data) return;
-
-    formMethod.setValue(
-      "acts",
-      data.resData
-        .map((item) => ({
-          category: item.category,
-          selectedActs: [],
-          checked: false,
-        }))
-        .filter(({ category }) => category !== "직접 입력")
-    );
-  }, [data]);
-
-  useEffect(() => {
     const hasLuckyday = sessionStorage.getItem("hasLuckyday");
 
     if (hasLuckyday === "1") {
@@ -126,11 +95,14 @@ function CreateLuckyDayPage() {
       <S.CreateLuckyDay>
         <FormProvider {...formMethod}>
           <ProgressBar progressState={currentProgress} />
-          {changePage(currentProgress)}
+          {PROGRESS_STATE.ACTIVITY === currentProgress && (
+            <SelectActivity data={data} />
+          )}
+          {PROGRESS_STATE.PERIOD === currentProgress && <SelectPeriod />}
+          {PROGRESS_STATE.COUNT === currentProgress && <SelectCount />}
+          {PROGRESS_STATE.EXP_DATE === currentProgress && <SelectExceptDate />}
         </FormProvider>
       </S.CreateLuckyDay>
     </ButtonLayout>
   );
 }
-
-export default CreateLuckyDayPage;

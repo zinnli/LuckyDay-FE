@@ -1,78 +1,70 @@
-import { useEffect, useState } from "react";
-import dayjs from "dayjs";
+import { useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
 
 import { useToast } from "hooks";
 import { LUCKYDAY_PERIODS } from "assets";
 
 const useCalendar = (
+  period: number,
   dates: string,
   expDates: string[],
   makeExpDates: (dates: string) => void
 ) => {
-  const [currentMonth, setCurrentMonth] = useState(dayjs());
-  const [period, setPeriod] = useState("");
-  const [disabled, setDisabled] = useState<string[]>([]);
+  // 현재 보고 있는 달
+  const [currentMonth, setCurrentMonth] = useState<Dayjs>(dayjs());
 
   const { addToast } = useToast();
 
+  // 오늘 날짜
+  const today = dayjs();
+  // 오늘 날짜 기준 기간 마지막 날짜 (today + period 일)
+  const currentDate = today.add(period, "day");
+  // 이번 달의 첫 날
+  const firstDayOfMonth = currentMonth.startOf("month").locale("ko");
+  // 이번 달 총 일수
   const daysInMonth = currentMonth.daysInMonth();
-  const firstDayOfMonth = dayjs(currentMonth).startOf("month").locale("ko");
-
-  const currentDate = dayjs(dayjs()).add(+period, "day");
-  const existDates = Array.from({ length: daysInMonth }, (_, index) =>
-    dayjs(firstDayOfMonth).add(index, "day")
+  // 이번 달 날짜 배열
+  const existDates = Array.from({ length: daysInMonth }, (_, idx) =>
+    firstDayOfMonth.add(idx, "day")
   );
-  const emptyDates = new Array(firstDayOfMonth.day()).fill(null);
+  // 이번 달 첫날의 요일 숫자만큼 빈칸 배열 생성
+  const emptyDates = Array.from({ length: firstDayOfMonth.day() }, () => null);
+  // 달력에 표시할 날짜 리스트 (빈칸 + 실제 날짜)
   const calendarList = [...emptyDates, ...existDates];
+  const diffDays = currentDate.startOf("day").diff(today.startOf("day"), "day");
+  // today 부터 currentDate까지 날짜 배열 (YYYY-MM-DD)
+  const monthsData = Array.from({ length: diffDays }, (_, i) =>
+    today.add(i, "day").format("YYYY-MM-DD")
+  );
 
-  const monthsData: string[] = [];
-  let currentDay = dayjs().startOf("day");
-
-  while (currentDay.isBefore(currentDate.startOf("day"))) {
-    monthsData.push(currentDay.format("YYYY-MM-DD"));
-    currentDay = currentDay.add(1, "day");
-  }
-
-  const handleMoveToPrevMonth = (): void => {
-    setCurrentMonth(dayjs(currentMonth).subtract(1, "month"));
-  };
-  const handleMoveToNextMonth = (): void => {
-    setCurrentMonth(dayjs(currentMonth).add(1, "month"));
-  };
-
-  const handleDisabledCheck = (date: dayjs.Dayjs) => (): void => {
+  const handleMoveToPrevMonth = () =>
+    setCurrentMonth((prev) => prev.subtract(1, "month"));
+  const handleMoveToNextMonth = () =>
+    setCurrentMonth((prev) => prev.add(1, "month"));
+  // 날짜 선택 시 제외 날짜 처리 및 토스트 알림
+  const handleDisabledCheck = (date: Dayjs) => () => {
     if (!date) return;
 
     const formattedDate = date.format("YYYY-MM-DD");
-    const isAlreadyDisabled = disabled.includes(formattedDate);
     const luckyday = LUCKYDAY_PERIODS.find((item) => item.period === +dates);
 
-    if (!isAlreadyDisabled) {
-      if (expDates.length >= (luckyday?.expDate ?? 1))
-        return addToast({
-          content: `최대 ${luckyday?.expDate}개의 제외 날짜를 선택할 수 있어요.`,
-        });
-
-      if (!monthsData.includes(formattedDate)) return;
-
-      setDisabled([...disabled, formattedDate]);
-    } else {
-      const currentDate = disabled.filter((item) => item !== formattedDate);
-
-      setDisabled(currentDate);
+    // 제외 날짜 최대 개수 초과 시 토스트 출력
+    if (expDates.length >= (luckyday?.expDate ?? 1)) {
+      addToast({
+        content: `최대 ${luckyday?.expDate}개의 제외 날짜를 선택할 수 있어요.`,
+      });
+      return;
     }
+
+    // 선택한 날짜가 기간 내에 없으면 무시
+    if (!monthsData.includes(formattedDate)) return;
 
     makeExpDates(formattedDate);
   };
 
-  useEffect(() => {
-    setPeriod(dates);
-  }, [dates]);
-
   return {
     currentMonth,
     monthsData,
-    disabled,
     emptyDates,
     calendarList,
     handleMoveToPrevMonth,
